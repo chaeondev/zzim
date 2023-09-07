@@ -1,1 +1,1 @@
-# SeSAC_Recap_ShoppingSearchEngine
+# SeSAC_Recap_ShoppingSearchProject
