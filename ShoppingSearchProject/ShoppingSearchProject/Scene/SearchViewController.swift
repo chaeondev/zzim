@@ -9,7 +9,8 @@ import UIKit
 
 class SearchViewController: BaseViewController {
     
-    lazy var searchBar = {
+    // MARK: access control, lazy property 고려하기 -> ARC에 영향?
+    private lazy var searchBar = {
         let view = UISearchBar()
         view.placeholder = "검색어를 입력해주세요"
         view.showsCancelButton = true
@@ -38,7 +39,8 @@ class SearchViewController: BaseViewController {
         return view
     }()
     
-    lazy var stackView = {
+    // MARK: 스크롤 시 안보이게 구현 고려하기 -> reusableheader 사용?
+    private lazy var stackView = {
         let view = UIStackView(arrangedSubviews: [sortByAccuracyButton, sortByDateButton, sortByHighPrice, sortByLowPrice])
         view.axis = .horizontal
         view.isLayoutMarginsRelativeArrangement = true
@@ -61,8 +63,8 @@ class SearchViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setNavigationBar()
+
+        navigationItem.title = "쇼핑 검색"
         
     }
     
@@ -97,10 +99,6 @@ class SearchViewController: BaseViewController {
         
     }
     
-    func setNavigationBar() {
-        
-    }
-    
 }
 
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -111,14 +109,13 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell else { return UICollectionViewCell() }
-        
         return cell
     }
     
     private func collectionViewLayout() -> UICollectionViewFlowLayout {
         
         let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 8
+        let spacing: CGFloat = 12
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)

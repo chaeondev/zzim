@@ -28,3 +28,4 @@ final class SortButton: UIButton {
     
 }
 
+// TODO: CGColor 다크모드 대응 + Color Enum 효과적..? 고려

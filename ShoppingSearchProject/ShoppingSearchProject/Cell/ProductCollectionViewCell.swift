@@ -71,19 +71,19 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         
         mallNameLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom).offset(4)
-            make.horizontalEdges.equalToSuperview().offset(4)
+            make.horizontalEdges.equalToSuperview().inset(6)
             make.height.equalToSuperview().multipliedBy(0.08)
         }
         
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(mallNameLabel.snp.bottom)
-            make.horizontalEdges.equalToSuperview().offset(4)
+            make.horizontalEdges.equalToSuperview().inset(6)
             make.height.lessThanOrEqualToSuperview().multipliedBy(0.15)
         }
         
         priceLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom)
-            make.horizontalEdges.equalToSuperview().offset(4)
+            make.horizontalEdges.equalToSuperview().inset(6)
             make.height.equalToSuperview().multipliedBy(0.1)
         }
     }
