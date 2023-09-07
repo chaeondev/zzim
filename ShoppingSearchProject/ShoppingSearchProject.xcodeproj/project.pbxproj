@@ -28,6 +28,10 @@
 		DE04F1B22AA9D95A002FEFAB /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1B12AA9D95A002FEFAB /* SortButton.swift */; };
 		DE04F1B62AAA3E64002FEFAB /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1B52AAA3E64002FEFAB /* RoundButton.swift */; };
 		DE04F1BB2AAA4638002FEFAB /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1BA2AAA4638002FEFAB /* UINavigationController+Extension.swift */; };
+		DE04F1BD2AAA58C7002FEFAB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DE04F1BC2AAA58C7002FEFAB /* .gitignore */; };
+		DE04F1BF2AAA58DD002FEFAB /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1BE2AAA58DD002FEFAB /* APIKey.swift */; };
+		DE04F1C12AAA58EE002FEFAB /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1C02AAA58EE002FEFAB /* APIService.swift */; };
+		DE04F1C32AAA5C0A002FEFAB /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1C22AAA5C0A002FEFAB /* Shopping.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +54,10 @@
 		DE04F1B12AA9D95A002FEFAB /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		DE04F1B52AAA3E64002FEFAB /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		DE04F1BA2AAA4638002FEFAB /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		DE04F1BC2AAA58C7002FEFAB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		DE04F1BE2AAA58DD002FEFAB /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		DE04F1C02AAA58EE002FEFAB /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		DE04F1C22AAA5C0A002FEFAB /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +108,7 @@
 				DE04F1802AA99F4F002FEFAB /* Assets.xcassets */,
 				DE04F1822AA99F4F002FEFAB /* LaunchScreen.storyboard */,
 				DE04F1852AA99F4F002FEFAB /* Info.plist */,
+				DE04F1BC2AAA58C7002FEFAB /* .gitignore */,
 			);
 			path = ShoppingSearchProject;
 			sourceTree = "<group>";
@@ -160,6 +169,9 @@
 		DE04F1912AA9B3FC002FEFAB /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				DE04F1BE2AAA58DD002FEFAB /* APIKey.swift */,
+				DE04F1C02AAA58EE002FEFAB /* APIService.swift */,
+				DE04F1C22AAA5C0A002FEFAB /* Shopping.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -242,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE04F1842AA99F4F002FEFAB /* LaunchScreen.storyboard in Resources */,
+				DE04F1BD2AAA58C7002FEFAB /* .gitignore in Resources */,
 				DE04F1812AA99F4F002FEFAB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,6 +266,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE04F1C12AAA58EE002FEFAB /* APIService.swift in Sources */,
+				DE04F1C32AAA5C0A002FEFAB /* Shopping.swift in Sources */,
 				DE04F1AC2AA9BD28002FEFAB /* ProductCollectionViewCell.swift in Sources */,
 				DE04F1A22AA9B637002FEFAB /* SearchViewController.swift in Sources */,
 				DE04F1BB2AAA4638002FEFAB /* UINavigationController+Extension.swift in Sources */,
@@ -263,6 +278,7 @@
 				DE04F1A62AA9B8F8002FEFAB /* Color.swift in Sources */,
 				DE04F1952AA9B44F002FEFAB /* BaseViewController.swift in Sources */,
 				DE04F1782AA99F4E002FEFAB /* AppDelegate.swift in Sources */,
+				DE04F1BF2AAA58DD002FEFAB /* APIKey.swift in Sources */,
 				DE04F17A2AA99F4E002FEFAB /* SceneDelegate.swift in Sources */,
 				DE04F1B02AA9BE5E002FEFAB /* Design.swift in Sources */,
 				DE04F1B22AA9D95A002FEFAB /* SortButton.swift in Sources */,
