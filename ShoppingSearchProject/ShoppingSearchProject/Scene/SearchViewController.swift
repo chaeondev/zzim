@@ -125,7 +125,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         cell.titleLabel.text = data.title
         cell.mallNameLabel.text = data.mallName
         // MARK: 가격 data formatter
-        cell.priceLabel.text = data.lprice
+        cell.priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
         return cell
     }
     
