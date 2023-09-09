@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-class APIService {
+final class APIService {
     static let shared = APIService()
 
     private let key = APIKey.naver
@@ -19,22 +19,15 @@ class APIService {
         
         // MARK: encoding 체크, 영어일때 분기처리?+대소문자, guard문 예외처리
         guard let text = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
-        guard let url = URL(string: "https://openapi.naver.com/v1/search/shop.json") else { return }
-        
+        guard let url = URL(string: "https://openapi.naver.com/v1/search/shop.json?query=\(text)&display=30&start=\(start)&sort=\(sort.rawValue)") else { return }
+        print(url)
         let header: HTTPHeaders = [
             "X-Naver-Client-Id": "ivZGa3DZkmJrM4pamD81",
             "X-Naver-Client-Secret": key
         ]
-        
-        let parameters: Parameters = [
-            "query": query,
-            "display": 30,
-            "start": start,
-            "sort": sort.rawValue
-        ]
     
         // MARK: 통신 시간이 너무 길때 에러처리, validate -> api status code 확인
-        AF.request(url, method: .get, parameters: parameters, headers: header).validate().responseDecodable(of: Shopping.self) { response in
+        AF.request(url, headers: header).validate().responseDecodable(of: Shopping.self) { response in
             switch response.result {
             case .success(let value):
                 completion(value)
