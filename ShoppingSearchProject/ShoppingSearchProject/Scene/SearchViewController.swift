@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SearchViewController: BaseViewController {
     
@@ -40,6 +41,7 @@ class SearchViewController: BaseViewController {
     }()
     
     // MARK: 스크롤 시 안보이게 구현 고려하기 -> reusableheader 사용?
+    // MARK: pagination 하다가 위로 올라가는 거 구현하기
     private lazy var stackView = {
         let view = UIStackView(arrangedSubviews: [sortByAccuracyButton, sortByDateButton, sortByHighPrice, sortByLowPrice])
         view.axis = .horizontal
@@ -50,21 +52,27 @@ class SearchViewController: BaseViewController {
         return view
     }()
     
-    lazy var collectionView = {
+    private lazy var collectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout())
         view.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.reuseIdentifier)
         view.delegate = self
         view.dataSource = self
+        view.prefetchDataSource = self
         view.collectionViewLayout = collectionViewLayout()
+        view.keyboardDismissMode = .onDrag
         return view
     }()
     
+    var page = 1
+    var productList: Shopping = Shopping(lastBuildDate: "", total: 0, start: 0, display: 0, items: [])
+    var startLocation: Int = 1
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = "쇼핑 검색"
+     
         
     }
     
@@ -101,14 +109,23 @@ class SearchViewController: BaseViewController {
     
 }
 
-extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return productList.items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell else { return UICollectionViewCell() }
+        
+        let data = productList.items[indexPath.row]
+        
+        cell.imageView.kf.setImage(with: URL(string: data.image))
+        // MARK: 검색어 일치하는 타이틀 <b>태그 감싸지는거 text처리하기
+        cell.titleLabel.text = data.title
+        cell.mallNameLabel.text = data.mallName
+        // MARK: 가격 data formatter
+        cell.priceLabel.text = data.lprice
         return cell
     }
     
@@ -127,11 +144,56 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         return layout
     }
     
+    // Pagination
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        // MARK: lastPage float로 바꿔서 +1 구현..? 마지막 제품까지 보여주려면 구현하기, start의 최댓값은..? -> 이부분 다시 생각해보기
+        // MARK: prefetching 조건 다시한번 체크하기 - 아이템이 별로 없을때는?
+        let lastStartLocation = productList.total < 1000 ? productList.total - 30 : 1000 // start의 최댓값 1000
+        
+        for indexPath in indexPaths {
+            if productList.items.count - 1 == indexPath.item && productList.start < lastStartLocation {
+                startLocation += 30
+                APIService.shared.searchProduct(query: searchBar.text!, start: startLocation, sort: .sim) { data in
+                    self.productList.items.append(contentsOf: data.items)
+                    DispatchQueue.main.async {
+                        collectionView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: 구현하기
+    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        
+    }
+    
+    
     
     
 }
 
 extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        startLocation = 1
+        guard let query = searchBar.text else { return } // MARK: guard 예외처리
+        APIService.shared.searchProduct(query: query, start: startLocation, sort: .sim) { data in
+            print(data)
+            self.productList = data
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            }
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        productList.items.removeAll()
+        searchBar.text = nil
+        collectionView.reloadData()
+    }
     
 }
 

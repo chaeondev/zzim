@@ -9,9 +9,9 @@ import Foundation
 
 // MARK: - Shopping
 struct Shopping: Codable {
-    let lastBuildDate: String
-    let total, start, display: Int
-    let items: [Item]
+    var lastBuildDate: String
+    var total, start, display: Int
+    var items: [Item]
 }
 
 // MARK: - Item
