@@ -29,6 +29,7 @@ class LikesViewController: BaseViewController {
     }()
     
     var products: Results<FavoriteProduct>?
+    var searchList: [FavoriteProduct] = []
     
     let repository = FavoriteProductRepository()
     
@@ -37,10 +38,14 @@ class LikesViewController: BaseViewController {
         
         navigationItem.title = "좋아요 목록"
         products = repository.fetch()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        searchList.removeAll()
+        products!.forEach { searchList.append($0) }
         
         collectionView.reloadData()
     }
@@ -68,18 +73,19 @@ class LikesViewController: BaseViewController {
 
 extension LikesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let products = products else { return 0 }
-        return products.count
+        //guard let products = products else { return 0 }
+        return searchList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell else { return UICollectionViewCell() }
         
-        if let products = products {
-            cell.likeRecord = products[indexPath.row]
-        }
-        cell.configureLikesViewCell()
+        let product = searchList[indexPath.row]
+        cell.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, hprice: "", mallName: product.mallName, productID: product.id, productType: "", brand: "", maker: "")
+        cell.configureSearchViewCell()
         cell.completionHandler = {
+            self.searchList.removeAll()
+            self.products!.forEach { self.searchList.append($0) }
             collectionView.reloadData()
         }
 
@@ -91,6 +97,7 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
         guard let products = products else { return }
         let product = products[indexPath.row]
         let vc = DetailWebViewController()
+        
         vc.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, hprice: "", mallName: product.mallName, productID: product.id, productType: "", brand: "", maker: "")
         vc.id = products[indexPath.row].id
         vc.productTitle = products[indexPath.row].title
@@ -116,5 +123,41 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
 }
 
 extension LikesViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if let text = searchBar.text {
+            searchQuery(text: text)
+        }
+        if searchBar.text == "" {
+            searchList.removeAll()
+            products!.forEach { searchList.append($0) }
+        }
+        
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        searchQuery(text: text)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        guard let products = products else { return }
+        searchList.removeAll()
+        products.forEach { searchList.append($0) }
+        searchBar.text = ""
+        collectionView.reloadData()
+    }
+    
+    func searchQuery(text: String) {
+        searchList.removeAll()
+        guard let products = products else { return }
+        for item in products {
+            if item.title.contains(text) {
+                searchList.append(item)
+            }
+        }
+        collectionView.reloadData()
+    }
+    
     
 }

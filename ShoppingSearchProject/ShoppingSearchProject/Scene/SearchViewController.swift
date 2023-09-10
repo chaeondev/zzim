@@ -135,7 +135,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell else { return UICollectionViewCell() }
         
         let data = productList.items[indexPath.row]
-        cell.searchData = data
+        cell.data = data
         cell.configureSearchViewCell()
         return cell
     }

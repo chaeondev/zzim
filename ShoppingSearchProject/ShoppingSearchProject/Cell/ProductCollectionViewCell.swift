@@ -10,9 +10,9 @@ import Kingfisher
 
 class ProductCollectionViewCell: BaseCollectionViewCell {
     
-    var searchData: Item?
-    
     var likeRecord: FavoriteProduct?
+    
+    var data: Item?
     
     let imageView = {
         let view = PhotoImageView(frame: .zero)
@@ -103,7 +103,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     
     func configureSearchViewCell() {
         
-        guard let data = searchData else { return }
+        guard let data = data else { return }
         imageView.kf.setImage(with: URL(string: data.image))
         // MARK: 검색어 일치하는 타이틀 <b>태그 감싸지는거 text처리하기
         let sample = data.title.replacingOccurrences(of: "<b>", with: "")
@@ -123,13 +123,20 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     }
     
     func configureLikesViewCell() {
-        guard let record = likeRecord else { return }
-        imageView.kf.setImage(with: URL(string: record.image))
-        let sample = record.title.replacingOccurrences(of: "<b>", with: "")
+//        guard let record = likeRecord else { return }
+//        imageView.kf.setImage(with: URL(string: record.image))
+//        let sample = record.title.replacingOccurrences(of: "<b>", with: "")
+//        let title = sample.replacingOccurrences(of: "</b>", with: "")
+//        titleLabel.text = title
+//        mallNameLabel.text = record.mallName
+//        priceLabel.text = Int(record.price)?.AddCommaToNumberString()
+        guard let data = data else { return }
+        imageView.kf.setImage(with: URL(string: data.image))
+        let sample = data.title.replacingOccurrences(of: "<b>", with: "")
         let title = sample.replacingOccurrences(of: "</b>", with: "")
         titleLabel.text = title
-        mallNameLabel.text = record.mallName
-        priceLabel.text = Int(record.price)?.AddCommaToNumberString()
+        mallNameLabel.text = data.mallName
+        priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
         likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         likeButton.addTarget(self, action: #selector(likeButtonClickedInLikes), for: .touchUpInside)
     }
@@ -143,7 +150,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     // MARK: likesView일때 고려해서 다시만들기 -> isEmpty부분 조건 추가하기
     @objc func likeButtonClickedInSearch() {
         
-        guard let data = searchData else { return }
+        guard let data = data else { return }
         
         let isEmpty =  self.repository.checkDataIsEmpty(id: data.productID)
         
@@ -155,15 +162,17 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
             likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
             guard let product = repository.fetch().filter({ $0.id == data.productID }).first else { return }
             self.repository.deleteItem(product)
+            completionHandler?()
         }
+        
  
     }
     
     // MARK: 메서드 두개인거 하나로 구현하기
     @objc func likeButtonClickedInLikes() {
-        guard let record = likeRecord else { return }
-        
-        self.repository.deleteRecord(record)
+        guard let data = data else { return }
+        guard let product = repository.fetch().filter({ $0.id == data.productID }).first else { return }
+        self.repository.deleteItem(product)
         completionHandler?()
     }
 }
