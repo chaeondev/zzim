@@ -36,6 +36,7 @@
 		DE04F1CD2AACD347002FEFAB /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1CC2AACD347002FEFAB /* Int+Extension.swift */; };
 		DE04F1CF2AADAA23002FEFAB /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */; };
 		DE04F1D12AADAF2C002FEFAB /* FavoriteProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1D02AADAF2C002FEFAB /* FavoriteProductRepository.swift */; };
+		DE04F1D62AAE1EA4002FEFAB /* DetailWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1D52AAE1EA4002FEFAB /* DetailWebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,7 @@
 		DE04F1CC2AACD347002FEFAB /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		DE04F1D02AADAF2C002FEFAB /* FavoriteProductRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProductRepository.swift; sourceTree = "<group>"; };
+		DE04F1D52AAE1EA4002FEFAB /* DetailWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			children = (
 				DE04F1A12AA9B637002FEFAB /* SearchViewController.swift */,
 				DE04F1A32AA9B716002FEFAB /* LikesViewController.swift */,
+				DE04F1D52AAE1EA4002FEFAB /* DetailWebViewController.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				DE04F1D12AADAF2C002FEFAB /* FavoriteProductRepository.swift in Sources */,
 				DE04F1AC2AA9BD28002FEFAB /* ProductCollectionViewCell.swift in Sources */,
 				DE04F1A22AA9B637002FEFAB /* SearchViewController.swift in Sources */,
+				DE04F1D62AAE1EA4002FEFAB /* DetailWebViewController.swift in Sources */,
 				DE04F1BB2AAA4638002FEFAB /* UINavigationController+Extension.swift in Sources */,
 				DE04F1B62AAA3E64002FEFAB /* RoundButton.swift in Sources */,
 				DE04F1A82AA9BBD6002FEFAB /* BaseCollectionViewCell.swift in Sources */,

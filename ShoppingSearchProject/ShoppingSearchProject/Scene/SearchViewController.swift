@@ -140,19 +140,11 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         return cell
     }
     
-    private func collectionViewLayout() -> UICollectionViewFlowLayout {
-        
-        let layout = UICollectionViewFlowLayout()
-        let spacing: CGFloat = 12
-        layout.minimumLineSpacing = spacing
-        layout.minimumInteritemSpacing = spacing
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        let size = UIScreen.main.bounds.width - (spacing * 3)
-        let width = size / 2
-        let height = width * 1.5
-        layout.itemSize = CGSize(width: width, height: height)
-        
-        return layout
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = DetailWebViewController()
+        vc.productTitle = productList.items[indexPath.row].title
+        vc.id = productList.items[indexPath.row].productID
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // Pagination
@@ -179,7 +171,20 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         
     }
   
-    
+    private func collectionViewLayout() -> UICollectionViewFlowLayout {
+        
+        let layout = UICollectionViewFlowLayout()
+        let spacing: CGFloat = 12
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        let size = UIScreen.main.bounds.width - (spacing * 3)
+        let width = size / 2
+        let height = width * 1.5
+        layout.itemSize = CGSize(width: width, height: height)
+        
+        return layout
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {

@@ -23,7 +23,6 @@ class LikesViewController: BaseViewController {
         view.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.reuseIdentifier)
         view.delegate = self
         view.dataSource = self
-        view.prefetchDataSource = self
         view.collectionViewLayout = collectionViewLayout()
         view.keyboardDismissMode = .onDrag
         return view
@@ -67,7 +66,7 @@ class LikesViewController: BaseViewController {
     }
 }
 
-extension LikesViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching {
+extension LikesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let products = products else { return 0 }
         return products.count
@@ -83,13 +82,17 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
         cell.completionHandler = {
             collectionView.reloadData()
         }
-        
-        
+
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        guard let products = products else { return }
+        let vc = DetailWebViewController()
+        vc.id = products[indexPath.row].id
+        vc.productTitle = products[indexPath.row].title
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func collectionViewLayout() -> UICollectionViewFlowLayout {
