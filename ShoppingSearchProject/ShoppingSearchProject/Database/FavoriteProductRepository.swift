@@ -8,13 +8,7 @@
 import Foundation
 import RealmSwift
 
-protocol FavoriteProductRepositoryType: AnyObject {
-    func createItem(_ item: Item)
-    func fetch() -> Results<FavoriteProduct>
-    func deleteItem(_ item: Item)
-}
-
-class FavoriteProductRepository: FavoriteProductRepositoryType {
+class FavoriteProductRepository {
         
     private let realm = try! Realm()
     
@@ -23,8 +17,8 @@ class FavoriteProductRepository: FavoriteProductRepositoryType {
     }
     
 
-    func createItem(_ item: Item) {
-        let product = FavoriteProduct(id: item.productID, title: item.title, mallName: item.mallName, image: item.image, price: item.lprice, like: true, savedDate: Date())
+    func createItem(_ product: FavoriteProduct) {
+        
         
         do {
             try realm.write {
@@ -40,10 +34,7 @@ class FavoriteProductRepository: FavoriteProductRepositoryType {
         return data
     }
     
-    func deleteItem(_ item: Item) {
-        guard let product = (fetch().where {
-            $0.id == item.productID
-        }.first) else { return }
+    func deleteItem(_ product: FavoriteProduct) {
         
         do {
             try realm.write {
@@ -64,9 +55,9 @@ class FavoriteProductRepository: FavoriteProductRepositoryType {
         }
     }
     
-    func checkDataIsEmpty(data: Item) -> Bool {
+    func checkDataIsEmpty(id: String) -> Bool {
         let checkSavedData = fetch().where {
-            $0.id == data.productID
+            $0.id == id
         }
         
         return checkSavedData.isEmpty

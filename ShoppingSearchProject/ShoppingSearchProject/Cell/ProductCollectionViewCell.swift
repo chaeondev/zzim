@@ -114,7 +114,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
         likeButton.addTarget(self, action: #selector(likeButtonClickedInSearch), for: .touchUpInside)
         
-        if repository.checkDataIsEmpty(data: data) {
+        if repository.checkDataIsEmpty(id: data.productID) {
             likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
         } else {
             likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
@@ -145,14 +145,16 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         
         guard let data = searchData else { return }
         
-        let isEmpty =  self.repository.checkDataIsEmpty(data: data)
+        let isEmpty =  self.repository.checkDataIsEmpty(id: data.productID)
         
         if isEmpty {
             likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            self.repository.createItem(data)
+            let product = FavoriteProduct(id: data.productID, title: data.title, mallName: data.mallName, image: data.image, price: data.lprice, like: true, savedDate: Date())
+            self.repository.createItem(product)
         } else {
             likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            self.repository.deleteItem(data)
+            guard let product = repository.fetch().filter({ $0.id == data.productID }).first else { return }
+            self.repository.deleteItem(product)
         }
  
     }

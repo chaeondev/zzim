@@ -13,6 +13,10 @@ class DetailWebViewController: BaseViewController, WKUIDelegate {
     var webView = WKWebView()
     var productTitle: String = ""
     var id: String = ""
+    var data: Item?
+    var product: FavoriteProduct?
+    
+    let repository = FavoriteProductRepository()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +29,24 @@ class DetailWebViewController: BaseViewController, WKUIDelegate {
         let productRequest = URLRequest(url: productURL)
         webView.load(productRequest)
         
+        let heart = repository.checkDataIsEmpty(id: id) ? UIImage(systemName: "heart") : UIImage(systemName: "heart.fill")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: heart, style: .plain, target: self, action: #selector(likeButtonTapped))
+        
+    }
+    
+    @objc func likeButtonTapped(_ sender: UIBarButtonItem) {
+        
+        guard let data = data else { return }
+        if repository.checkDataIsEmpty(id: id) {
+            sender.image = UIImage(systemName: "heart.fill")
+            let product = FavoriteProduct(id: data.productID, title: data.title, mallName: data.mallName, image: data.image, price: data.lprice, like: true, savedDate: Date())
+            self.repository.createItem(product)
+        } else {
+            sender.image = UIImage(systemName: "heart")
+            guard let product = repository.fetch().filter({ $0.id == data.productID }).first else { return }
+            self.repository.deleteItem(product)
+        }
+            
     }
     
     override func configure() {

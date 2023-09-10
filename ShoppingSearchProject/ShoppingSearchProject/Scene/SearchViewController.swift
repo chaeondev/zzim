@@ -144,6 +144,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         let vc = DetailWebViewController()
         vc.productTitle = productList.items[indexPath.row].title
         vc.id = productList.items[indexPath.row].productID
+        vc.data = productList.items[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
     

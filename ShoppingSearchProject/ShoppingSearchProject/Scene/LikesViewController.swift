@@ -89,7 +89,9 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let products = products else { return }
+        let product = products[indexPath.row]
         let vc = DetailWebViewController()
+        vc.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, hprice: "", mallName: product.mallName, productID: product.id, productType: "", brand: "", maker: "")
         vc.id = products[indexPath.row].id
         vc.productTitle = products[indexPath.row].title
         navigationController?.pushViewController(vc, animated: true)
