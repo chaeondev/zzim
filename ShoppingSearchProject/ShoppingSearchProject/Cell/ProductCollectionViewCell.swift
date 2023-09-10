@@ -9,6 +9,8 @@ import UIKit
 
 class ProductCollectionViewCell: BaseCollectionViewCell {
     
+    var data: Item?
+    
     let imageView = {
         let view = PhotoImageView(frame: .zero)
         view.backgroundColor = .blue
@@ -20,6 +22,8 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         view.backgroundColor = .white
         view.setImage(UIImage(systemName: "heart"), for: .normal)
         view.tintColor = .black
+      
+        
         return view
     }()
     
@@ -48,12 +52,17 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         return view
     }()
     
+    let repository = FavoriteProductRepository()
+
     override func configure() {
         contentView.addSubview(imageView)
-        imageView.addSubview(likeButton)
+        // ???: ImageView에 likeButton을 넣으면 addTarget 작동 안함 왜..?
+        contentView.addSubview(likeButton)
         contentView.addSubview(mallNameLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(priceLabel)
+        likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
+        
     }
     
     override func setConstraints() {
@@ -64,7 +73,8 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         }
         
         likeButton.snp.makeConstraints { make in
-            make.bottom.trailing.equalToSuperview().inset(8)
+            make.bottom.equalTo(imageView.snp.bottom).inset(8)
+            make.trailing.equalTo(imageView.snp.trailing).inset(8)
             make.width.equalToSuperview().multipliedBy(0.2)
             make.height.equalTo(self.likeButton.snp.width)
         }
@@ -86,5 +96,42 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
             make.horizontalEdges.equalToSuperview().inset(6)
             make.height.equalToSuperview().multipliedBy(0.1)
         }
+    }
+    
+    func configureCell() {
+        
+        guard let data = data else { return }
+        imageView.kf.setImage(with: URL(string: data.image))
+        // MARK: 검색어 일치하는 타이틀 <b>태그 감싸지는거 text처리하기
+        titleLabel.text = data.title
+        mallNameLabel.text = data.mallName
+        // MARK: 가격 data formatter
+        priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
+        
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        
+    }
+    
+    @objc func likeButtonClicked() {
+        
+        print(#function)
+        guard let data = data else { return }
+        
+        let isEmpty =  self.repository.checkDataIsEmpty(data: data)
+        
+        if isEmpty {
+            likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            self.repository.createItem(data)
+        } else {
+            likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            self.repository.deleteItem(data)
+        }
+        
+        
     }
 }

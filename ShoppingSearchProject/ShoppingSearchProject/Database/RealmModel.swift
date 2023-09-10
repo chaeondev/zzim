@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class FavoriteProductTable: Object {
+class FavoriteProduct: Object {
     @Persisted(primaryKey: true) var id: String
     @Persisted var title: String
     @Persisted var mallName: String
@@ -17,7 +17,7 @@ class FavoriteProductTable: Object {
     @Persisted var like: Bool
     @Persisted var savedDate: Date
     
-    convenience init(id: String, title: String, mallName: String, price: String, like: Bool) {
+    convenience init(id: String, title: String, mallName: String, price: String, like: Bool, savedDate: Date) {
         self.init()
         
         self.id = id

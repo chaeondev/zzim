@@ -9,51 +9,57 @@ import Foundation
 import RealmSwift
 
 protocol FavoriteProductRepositoryType: AnyObject {
-    func createItem(_ item: FavoriteProductTable)
-    func fetch() -> Results<FavoriteProductTable>
-    func updateItem(_ item: FavoriteProductTable)
-    func deleteItem(_ item: FavoriteProductTable)
+    func createItem(_ item: Item)
+    func fetch() -> Results<FavoriteProduct>
+    func deleteItem(_ item: Item)
 }
 
 class FavoriteProductRepository: FavoriteProductRepositoryType {
         
     private let realm = try! Realm()
     
+    func checkRealmFileURL() {
+        print(realm.configuration.fileURL ?? "Can't find file URL")
+    }
+    
 
-    func createItem(_ item: FavoriteProductTable) {
+    func createItem(_ item: Item) {
+        let product = FavoriteProduct(id: item.productID, title: item.title, mallName: item.mallName, price: item.lprice, like: true, savedDate: Date())
         
         do {
             try realm.write {
-                realm.add(item)
+                realm.add(product)
             }
         } catch {
             print(error) // mark: error 체크하기
         }
     }
     
-    func fetch() -> RealmSwift.Results<FavoriteProductTable> {
-        let data = realm.objects(FavoriteProductTable.self).sorted(byKeyPath: "savedDate", ascending: false)
+    func fetch() -> RealmSwift.Results<FavoriteProduct> {
+        let data = realm.objects(FavoriteProduct.self).sorted(byKeyPath: "savedDate", ascending: false)
         return data
     }
     
-    func updateItem(_ item: FavoriteProductTable) {
+    func deleteItem(_ item: Item) {
+        guard let product = (fetch().where {
+            $0.id == item.productID
+        }.first) else { return }
+        
         do {
             try realm.write {
-                realm.create(FavoriteProductTable.self, value: ["id": item.id, "like": item.like] as [String : Any], update: .modified)
-            }
-        } catch {
-            print("") // MARK: NSLog, error 구현하기
-        }
-    }
-    
-    func deleteItem(_ item: FavoriteProductTable) {
-        do {
-            try realm.write {
-                realm.delete(item)
+                realm.delete(product)
             }
         } catch {
             print(error)
         }
+    }
+    
+    func checkDataIsEmpty(data: Item) -> Bool {
+        let checkSavedData = fetch().where {
+            $0.id == data.productID
+        }
+        
+        return checkSavedData.isEmpty
     }
    
 }

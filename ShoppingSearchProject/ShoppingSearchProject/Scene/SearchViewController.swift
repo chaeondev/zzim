@@ -47,6 +47,8 @@ class SearchViewController: BaseViewController {
     
     var selectedButton: SortButton?
     
+    let repository = FavoriteProductRepository()
+    
     // MARK: 스크롤 시 안보이게 구현 고려하기 -> reusableheader 사용?
     // MARK: pagination 하다가 위로 올라가는 거 구현하기
     private lazy var stackView = {
@@ -79,6 +81,7 @@ class SearchViewController: BaseViewController {
         super.viewDidLoad()
 
         navigationItem.title = "쇼핑 검색"
+        repository.checkRealmFileURL()
      
         
     }
@@ -126,13 +129,8 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell else { return UICollectionViewCell() }
         
         let data = productList.items[indexPath.row]
-        
-        cell.imageView.kf.setImage(with: URL(string: data.image))
-        // MARK: 검색어 일치하는 타이틀 <b>태그 감싸지는거 text처리하기
-        cell.titleLabel.text = data.title
-        cell.mallNameLabel.text = data.mallName
-        // MARK: 가격 data formatter
-        cell.priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
+        cell.data = data
+        cell.configureCell()
         return cell
     }
     
