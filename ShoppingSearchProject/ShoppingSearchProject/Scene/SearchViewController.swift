@@ -20,34 +20,30 @@ class SearchViewController: BaseViewController {
     }()
     
     // ???: 왜 addtarget에서 target을 self로 하는게 warning이 뜨지?
-    let sortByAccuracyButton = {
+    private lazy var sortByAccuracyButton = {
         let view = SortButton()
         view.setTitle("정확도", for: .normal)
         view.addTarget(self, action: #selector(accuracyButtonClicked), for: .touchUpInside)
         return view
     }()
-    let sortByDateButton = {
+    private lazy var sortByDateButton = {
         let view = SortButton()
         view.setTitle("날짜순", for: .normal)
         view.addTarget(self, action: #selector(dateButtonClicked), for: .touchUpInside)
         return view
     }()
-    let sortByHighPrice = {
+    private lazy var sortByHighPrice = {
         let view = SortButton()
         view.setTitle("가격높은순", for: .normal)
         view.addTarget(self, action: #selector(highPriceButtonClicked), for: .touchUpInside)
         return view
     }()
-    let sortByLowPrice = {
+    private lazy var sortByLowPrice = {
         let view = SortButton()
         view.setTitle("가격낮은순", for: .normal)
         view.addTarget(self, action: #selector(lowPriceButtonClicked), for: .touchUpInside)
         return view
     }()
-    
-    var selectedButton: SortButton?
-    
-    let repository = FavoriteProductRepository()
     
     // MARK: 스크롤 시 안보이게 구현 고려하기 -> reusableheader 사용?
     // MARK: pagination 하다가 위로 올라가는 거 구현하기
@@ -75,6 +71,10 @@ class SearchViewController: BaseViewController {
     var page = 1
     var productList: Shopping = Shopping(lastBuildDate: "", total: 0, start: 0, display: 0, items: [])
     var startLocation: Int = 1
+    
+    var selectedButton: SortButton?
+    
+    let repository = FavoriteProductRepository()
     
     
     override func viewDidLoad() {
@@ -129,8 +129,8 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell else { return UICollectionViewCell() }
         
         let data = productList.items[indexPath.row]
-        cell.data = data
-        cell.configureCell()
+        cell.searchData = data
+        cell.configureSearchViewCell()
         return cell
     }
     

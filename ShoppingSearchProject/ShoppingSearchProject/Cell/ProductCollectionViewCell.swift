@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ProductCollectionViewCell: BaseCollectionViewCell {
     
-    var data: Item?
+    var searchData: Item?
+    
+    var likeRecord: FavoriteProduct?
     
     let imageView = {
         let view = PhotoImageView(frame: .zero)
@@ -98,9 +101,9 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         }
     }
     
-    func configureCell() {
+    func configureSearchViewCell() {
         
-        guard let data = data else { return }
+        guard let data = searchData else { return }
         imageView.kf.setImage(with: URL(string: data.image))
         // MARK: 검색어 일치하는 타이틀 <b>태그 감싸지는거 text처리하기
         titleLabel.text = data.title
@@ -111,16 +114,24 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         
     }
     
+    func configureLikesViewCell() {
+        guard let record = likeRecord else { return }
+        imageView.kf.setImage(with: URL(string: record.image))
+        titleLabel.text = record.title
+        mallNameLabel.text = record.mallName
+        priceLabel.text = Int(record.price)?.AddCommaToNumberString()
+    }
+    
+    // MARK: 체크하기
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        
     }
     
+    // MARK: likesView일때 고려해서 다시만들기 -> isEmpty부분 조건 추가하기
     @objc func likeButtonClicked() {
         
-        print(#function)
-        guard let data = data else { return }
+        guard let data = searchData else { return }
         
         let isEmpty =  self.repository.checkDataIsEmpty(data: data)
         

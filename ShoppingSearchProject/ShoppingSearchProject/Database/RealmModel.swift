@@ -17,7 +17,7 @@ class FavoriteProduct: Object {
     @Persisted var like: Bool
     @Persisted var savedDate: Date
     
-    convenience init(id: String, title: String, mallName: String, price: String, like: Bool, savedDate: Date) {
+    convenience init(id: String, title: String, mallName: String, image: String, price: String, like: Bool, savedDate: Date) {
         self.init()
         
         self.id = id

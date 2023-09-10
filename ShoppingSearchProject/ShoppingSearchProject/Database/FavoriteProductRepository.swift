@@ -24,7 +24,7 @@ class FavoriteProductRepository: FavoriteProductRepositoryType {
     
 
     func createItem(_ item: Item) {
-        let product = FavoriteProduct(id: item.productID, title: item.title, mallName: item.mallName, price: item.lprice, like: true, savedDate: Date())
+        let product = FavoriteProduct(id: item.productID, title: item.title, mallName: item.mallName, image: item.image, price: item.lprice, like: true, savedDate: Date())
         
         do {
             try realm.write {
