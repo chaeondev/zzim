@@ -54,6 +54,16 @@ class FavoriteProductRepository: FavoriteProductRepositoryType {
         }
     }
     
+    func deleteRecord(_ record: FavoriteProduct) {
+        do {
+            try realm.write {
+                realm.delete(record)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
     func checkDataIsEmpty(data: Item) -> Bool {
         let checkSavedData = fetch().where {
             $0.id == data.productID

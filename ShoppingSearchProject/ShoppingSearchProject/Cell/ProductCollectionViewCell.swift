@@ -25,8 +25,6 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         view.backgroundColor = .white
         view.setImage(UIImage(systemName: "heart"), for: .normal)
         view.tintColor = .black
-      
-        
         return view
     }()
     
@@ -56,6 +54,8 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     }()
     
     let repository = FavoriteProductRepository()
+    
+    var completionHandler : (() -> Void)?
 
     override func configure() {
         contentView.addSubview(imageView)
@@ -64,7 +64,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         contentView.addSubview(mallNameLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(priceLabel)
-        likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
+        
         
     }
     
@@ -112,6 +112,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         mallNameLabel.text = data.mallName
         // MARK: 가격 data formatter
         priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
+        likeButton.addTarget(self, action: #selector(likeButtonClickedInSearch), for: .touchUpInside)
         
     }
     
@@ -123,6 +124,8 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = title
         mallNameLabel.text = record.mallName
         priceLabel.text = Int(record.price)?.AddCommaToNumberString()
+        likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        likeButton.addTarget(self, action: #selector(likeButtonClickedInLikes), for: .touchUpInside)
     }
     
     // MARK: 체크하기
@@ -132,7 +135,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     }
     
     // MARK: likesView일때 고려해서 다시만들기 -> isEmpty부분 조건 추가하기
-    @objc func likeButtonClicked() {
+    @objc func likeButtonClickedInSearch() {
         
         guard let data = searchData else { return }
         
@@ -145,7 +148,13 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
             likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
             self.repository.deleteItem(data)
         }
+ 
+    }
+    
+    @objc func likeButtonClickedInLikes() {
+        guard let record = likeRecord else { return }
         
-        
+        self.repository.deleteRecord(record)
+        completionHandler?()
     }
 }

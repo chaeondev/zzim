@@ -80,6 +80,9 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
             cell.likeRecord = products[indexPath.row]
         }
         cell.configureLikesViewCell()
+        cell.completionHandler = {
+            collectionView.reloadData()
+        }
         
         
         return cell
