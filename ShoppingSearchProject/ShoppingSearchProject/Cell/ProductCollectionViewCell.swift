@@ -106,18 +106,21 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         guard let data = searchData else { return }
         imageView.kf.setImage(with: URL(string: data.image))
         // MARK: 검색어 일치하는 타이틀 <b>태그 감싸지는거 text처리하기
-        titleLabel.text = data.title
+        let sample = data.title.replacingOccurrences(of: "<b>", with: "")
+        let title = sample.replacingOccurrences(of: "</b>", with: "")
+        titleLabel.text = title
         mallNameLabel.text = data.mallName
         // MARK: 가격 data formatter
         priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
-        
         
     }
     
     func configureLikesViewCell() {
         guard let record = likeRecord else { return }
         imageView.kf.setImage(with: URL(string: record.image))
-        titleLabel.text = record.title
+        let sample = record.title.replacingOccurrences(of: "<b>", with: "")
+        let title = sample.replacingOccurrences(of: "</b>", with: "")
+        titleLabel.text = title
         mallNameLabel.text = record.mallName
         priceLabel.text = Int(record.price)?.AddCommaToNumberString()
     }
