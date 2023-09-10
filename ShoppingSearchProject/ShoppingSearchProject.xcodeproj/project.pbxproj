@@ -34,6 +34,7 @@
 		DE04F1C32AAA5C0A002FEFAB /* Shopping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1C22AAA5C0A002FEFAB /* Shopping.swift */; };
 		DE04F1CB2AABC274002FEFAB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DE04F1CA2AABC274002FEFAB /* Kingfisher */; };
 		DE04F1CD2AACD347002FEFAB /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1CC2AACD347002FEFAB /* Int+Extension.swift */; };
+		DE04F1CF2AADAA23002FEFAB /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		DE04F1C02AAA58EE002FEFAB /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		DE04F1C22AAA5C0A002FEFAB /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
 		DE04F1CC2AACD347002FEFAB /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 		DE04F1902AA9B3F5002FEFAB /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				DE04F1A62AA9B8F8002FEFAB /* Color.swift in Sources */,
 				DE04F1952AA9B44F002FEFAB /* BaseViewController.swift in Sources */,
 				DE04F1782AA99F4E002FEFAB /* AppDelegate.swift in Sources */,
+				DE04F1CF2AADAA23002FEFAB /* RealmModel.swift in Sources */,
 				DE04F1BF2AAA58DD002FEFAB /* APIKey.swift in Sources */,
 				DE04F17A2AA99F4E002FEFAB /* SceneDelegate.swift in Sources */,
 				DE04F1B02AA9BE5E002FEFAB /* Design.swift in Sources */,

@@ -19,26 +19,33 @@ class SearchViewController: BaseViewController {
         return view
     }()
     
+    // ???: 왜 addtarget에서 target을 self로 하는게 warning이 뜨지?
     let sortByAccuracyButton = {
         let view = SortButton()
         view.setTitle("정확도", for: .normal)
+        view.addTarget(self, action: #selector(accuracyButtonClicked), for: .touchUpInside)
         return view
     }()
     let sortByDateButton = {
         let view = SortButton()
         view.setTitle("날짜순", for: .normal)
+        view.addTarget(self, action: #selector(dateButtonClicked), for: .touchUpInside)
         return view
     }()
     let sortByHighPrice = {
         let view = SortButton()
         view.setTitle("가격높은순", for: .normal)
+        view.addTarget(self, action: #selector(highPriceButtonClicked), for: .touchUpInside)
         return view
     }()
     let sortByLowPrice = {
         let view = SortButton()
         view.setTitle("가격낮은순", for: .normal)
+        view.addTarget(self, action: #selector(lowPriceButtonClicked), for: .touchUpInside)
         return view
     }()
+    
+    var selectedButton: SortButton?
     
     // MARK: 스크롤 시 안보이게 구현 고려하기 -> reusableheader 사용?
     // MARK: pagination 하다가 위로 올라가는 거 구현하기
@@ -167,16 +174,14 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         
     }
-    
-    
-    
+  
     
 }
 
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        selectButton(button: sortByAccuracyButton)
         startLocation = 1
         guard let query = searchBar.text else { return } // MARK: guard 예외처리
         APIService.shared.searchProduct(query: query, start: startLocation, sort: .sim) { data in
@@ -197,3 +202,69 @@ extension SearchViewController: UISearchBarDelegate {
     
 }
 
+// 정렬 기능 구현
+extension SearchViewController {
+    @objc func accuracyButtonClicked(_ sender: SortButton) {
+        selectButton(button: sender)
+        startLocation = 1
+        guard let query = searchBar.text else { return }
+        APIService.shared.searchProduct(query: query, start: startLocation, sort: .sim) { data in
+            self.productList = data
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            }
+        }
+    }
+    
+    @objc func dateButtonClicked(_ sender: SortButton) {
+        selectButton(button: sender)
+        startLocation = 1
+        guard let query = searchBar.text else { return }
+        APIService.shared.searchProduct(query: query, start: startLocation, sort: .date) { data in
+            self.productList = data
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            }
+        }
+
+    }
+    
+    @objc func highPriceButtonClicked(_ sender: SortButton) {
+        selectButton(button: sender)
+        startLocation = 1
+        guard let query = searchBar.text else { return }
+        APIService.shared.searchProduct(query: query, start: startLocation, sort: .dsc) { data in
+            self.productList = data
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            }
+        }
+
+    }
+    
+    @objc func lowPriceButtonClicked(_ sender: SortButton) {
+        selectButton(button: sender)
+        startLocation = 1
+        guard let query = searchBar.text else { return }
+        APIService.shared.searchProduct(query: query, start: startLocation, sort: .asc) { data in
+            self.productList = data
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            }
+        }
+    }
+    
+    func selectButton(button: SortButton) {
+        button.isSelected = true
+        
+        if let previousButton = selectedButton {
+            previousButton.isSelected = false
+        }
+        
+        selectedButton = button
+    }
+}

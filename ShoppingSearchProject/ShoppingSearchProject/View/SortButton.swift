@@ -12,13 +12,24 @@ final class SortButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         titleLabel?.font = .systemFont(ofSize: 14)
-        setTitleColor(.label, for: .normal)
-        tintColor = .label
         layer.cornerRadius = Constants.Design.cornerRadius
-        layer.borderColor = UIColor.label.cgColor
         layer.borderWidth = 1
         clipsToBounds = true
+        setTitleColor(.label, for: .normal)
+        tintColor = .label
+        layer.borderColor = UIColor.label.cgColor
+        backgroundColor = .systemBackground
 
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            setTitleColor(.systemBackground, for: .selected)
+            tintColor = isSelected ? .systemBackground : .label
+            layer.borderColor = isSelected ? UIColor.systemBackground.cgColor : UIColor.label.cgColor
+            backgroundColor = isSelected ? .label : .systemBackground
+            setNeedsDisplay()
+        }
     }
     
     @available(*, unavailable)
