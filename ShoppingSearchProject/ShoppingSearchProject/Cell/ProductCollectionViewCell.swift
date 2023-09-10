@@ -114,6 +114,12 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
         likeButton.addTarget(self, action: #selector(likeButtonClickedInSearch), for: .touchUpInside)
         
+        if repository.checkDataIsEmpty(data: data) {
+            likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        } else {
+            likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        }
+        
     }
     
     func configureLikesViewCell() {
@@ -151,6 +157,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
  
     }
     
+    // MARK: 메서드 두개인거 하나로 구현하기
     @objc func likeButtonClickedInLikes() {
         guard let record = likeRecord else { return }
         
