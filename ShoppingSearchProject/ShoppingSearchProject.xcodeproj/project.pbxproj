@@ -35,6 +35,7 @@
 		DE04F1CB2AABC274002FEFAB /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DE04F1CA2AABC274002FEFAB /* Kingfisher */; };
 		DE04F1CD2AACD347002FEFAB /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1CC2AACD347002FEFAB /* Int+Extension.swift */; };
 		DE04F1CF2AADAA23002FEFAB /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */; };
+		DE04F1D12AADAF2C002FEFAB /* FavoriteProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1D02AADAF2C002FEFAB /* FavoriteProductRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		DE04F1C22AAA5C0A002FEFAB /* Shopping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shopping.swift; sourceTree = "<group>"; };
 		DE04F1CC2AACD347002FEFAB /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 		DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		DE04F1D02AADAF2C002FEFAB /* FavoriteProductRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProductRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */,
+				DE04F1D02AADAF2C002FEFAB /* FavoriteProductRepository.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 				DE04F1CD2AACD347002FEFAB /* Int+Extension.swift in Sources */,
 				DE04F1C12AAA58EE002FEFAB /* APIService.swift in Sources */,
 				DE04F1C32AAA5C0A002FEFAB /* Shopping.swift in Sources */,
+				DE04F1D12AADAF2C002FEFAB /* FavoriteProductRepository.swift in Sources */,
 				DE04F1AC2AA9BD28002FEFAB /* ProductCollectionViewCell.swift in Sources */,
 				DE04F1A22AA9B637002FEFAB /* SearchViewController.swift in Sources */,
 				DE04F1BB2AAA4638002FEFAB /* UINavigationController+Extension.swift in Sources */,
