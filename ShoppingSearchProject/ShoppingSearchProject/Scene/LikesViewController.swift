@@ -39,8 +39,6 @@ class LikesViewController: BaseViewController {
         
         navigationItem.title = "좋아요 목록"
         products = repository.fetch()
-        
-        
     }
     
     // 이부분 고치기 -> 아마해결..->아닌듯 ->fetchFilter로 해결!!
@@ -49,7 +47,6 @@ class LikesViewController: BaseViewController {
         super.viewWillAppear(animated)
 
         tapGesture.cancelsTouchesInView = false
-
         collectionView.reloadData()
     }
     
@@ -96,8 +93,6 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
                 collectionView.reloadData()
             }
         }
-        
-
         return cell
     }
     
@@ -155,20 +150,5 @@ extension LikesViewController: UISearchBarDelegate {
         searchBar.text = ""
         collectionView.reloadData()
     }
-    
-//    func searchQuery(text: String) {
-//        searchList.removeAll()
-//        guard let products = products else { return }
-//        for item in products {
-//            if item.title.contains(text) {
-//                searchList.append(item)
-//            }
-//        }
-//        collectionView.reloadData()
-//    }
-    
-    
-}
 
-// 스크롤 안될시 화면 탭할때 키보드 내리기
-// 상세화면 갔다가 돌아왔을때 검색어 화면 유지
+}

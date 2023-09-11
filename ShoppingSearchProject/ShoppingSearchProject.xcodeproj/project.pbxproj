@@ -26,7 +26,6 @@
 		DE04F1B02AA9BE5E002FEFAB /* Design.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1AF2AA9BE5E002FEFAB /* Design.swift */; };
 		DE04F1B22AA9D95A002FEFAB /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1B12AA9D95A002FEFAB /* SortButton.swift */; };
 		DE04F1B62AAA3E64002FEFAB /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1B52AAA3E64002FEFAB /* RoundButton.swift */; };
-		DE04F1BB2AAA4638002FEFAB /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1BA2AAA4638002FEFAB /* UINavigationController+Extension.swift */; };
 		DE04F1BD2AAA58C7002FEFAB /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DE04F1BC2AAA58C7002FEFAB /* .gitignore */; };
 		DE04F1BF2AAA58DD002FEFAB /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1BE2AAA58DD002FEFAB /* APIKey.swift */; };
 		DE04F1C12AAA58EE002FEFAB /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1C02AAA58EE002FEFAB /* APIService.swift */; };
@@ -57,7 +56,6 @@
 		DE04F1AF2AA9BE5E002FEFAB /* Design.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Design.swift; sourceTree = "<group>"; };
 		DE04F1B12AA9D95A002FEFAB /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		DE04F1B52AAA3E64002FEFAB /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
-		DE04F1BA2AAA4638002FEFAB /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		DE04F1BC2AAA58C7002FEFAB /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		DE04F1BE2AAA58DD002FEFAB /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		DE04F1C02AAA58EE002FEFAB /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -191,7 +189,6 @@
 		DE04F1932AA9B429002FEFAB /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				DE04F1BA2AAA4638002FEFAB /* UINavigationController+Extension.swift */,
 				DE04F1CC2AACD347002FEFAB /* Int+Extension.swift */,
 				DE04F1D72AAE58E7002FEFAB /* String+Extension.swift */,
 			);
@@ -289,7 +286,6 @@
 				DE04F1AC2AA9BD28002FEFAB /* ProductCollectionViewCell.swift in Sources */,
 				DE04F1A22AA9B637002FEFAB /* SearchViewController.swift in Sources */,
 				DE04F1D62AAE1EA4002FEFAB /* DetailWebViewController.swift in Sources */,
-				DE04F1BB2AAA4638002FEFAB /* UINavigationController+Extension.swift in Sources */,
 				DE04F1B62AAA3E64002FEFAB /* RoundButton.swift in Sources */,
 				DE04F1A82AA9BBD6002FEFAB /* BaseCollectionViewCell.swift in Sources */,
 				DE04F17C2AA99F4E002FEFAB /* ViewController.swift in Sources */,

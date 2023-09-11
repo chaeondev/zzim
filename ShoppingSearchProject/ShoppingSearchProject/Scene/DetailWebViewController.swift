@@ -27,9 +27,14 @@ class DetailWebViewController: BaseViewController, WKUIDelegate {
         let productRequest = URLRequest(url: productURL)
         webView.load(productRequest)
         
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let data = data else { return }
         let heart = repository.checkDataIsEmpty(id: data.productID) ? UIImage(systemName: "heart") : UIImage(systemName: "heart.fill")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: heart, style: .plain, target: self, action: #selector(likeButtonTapped))
-        
     }
     
     @objc func likeButtonTapped(_ sender: UIBarButtonItem) {
@@ -63,4 +68,3 @@ class DetailWebViewController: BaseViewController, WKUIDelegate {
     }
 }
 
-// likeButtonTapped -> 하나로 묶을 수 없을까?
