@@ -21,33 +21,37 @@ class SearchViewController: BaseViewController {
 
     private lazy var sortByAccuracyButton = {
         let view = SortButton()
+        view.sortMethod = .sim
         view.setTitle("정확도", for: .normal)
-        view.addTarget(self, action: #selector(accuracyButtonClicked), for: .touchUpInside)
+        view.addTarget(self, action: #selector(sortButtonClicked), for: .touchUpInside)
         return view
     }()
     private lazy var sortByDateButton = {
         let view = SortButton()
+        view.sortMethod = .date
         view.setTitle("날짜순", for: .normal)
-        view.addTarget(self, action: #selector(dateButtonClicked), for: .touchUpInside)
+        view.addTarget(self, action: #selector(sortButtonClicked), for: .touchUpInside)
         return view
     }()
-    private lazy var sortByHighPrice = {
+    private lazy var sortByHighPriceButton = {
         let view = SortButton()
+        view.sortMethod = .dsc
         view.setTitle("가격높은순", for: .normal)
-        view.addTarget(self, action: #selector(highPriceButtonClicked), for: .touchUpInside)
+        view.addTarget(self, action: #selector(sortButtonClicked), for: .touchUpInside)
         return view
     }()
-    private lazy var sortByLowPrice = {
+    private lazy var sortByLowPriceButton = {
         let view = SortButton()
+        view.sortMethod = .asc
         view.setTitle("가격낮은순", for: .normal)
-        view.addTarget(self, action: #selector(lowPriceButtonClicked), for: .touchUpInside)
+        view.addTarget(self, action: #selector(sortButtonClicked), for: .touchUpInside)
         return view
     }()
     
     // MARK: 스크롤 시 안보이게 구현 고려하기 -> reusableheader 사용?
     // MARK: pagination 하다가 위로 올라가는 거 구현하기
     private lazy var stackView = {
-        let view = UIStackView(arrangedSubviews: [sortByAccuracyButton, sortByDateButton, sortByHighPrice, sortByLowPrice])
+        let view = UIStackView(arrangedSubviews: [sortByAccuracyButton, sortByDateButton, sortByHighPriceButton, sortByLowPriceButton])
         view.axis = .horizontal
         view.isLayoutMarginsRelativeArrangement = true
         view.distribution = .fillProportionally
@@ -97,7 +101,7 @@ class SearchViewController: BaseViewController {
         [searchBar, stackView, collectionView].forEach {
             view.addSubview($0)
         }
-        [sortByAccuracyButton, sortByDateButton, sortByHighPrice, sortByLowPrice].forEach {
+        [sortByAccuracyButton, sortByDateButton, sortByHighPriceButton, sortByLowPriceButton].forEach {
             stackView.addArrangedSubview($0)
         }
     }
@@ -188,16 +192,22 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        selectButton(button: sortByAccuracyButton)
+        if selectedButton == nil {
+            selectButton(button: sortByAccuracyButton)
+        }
+        
+        guard let selectedButton else { return }
+        
         startLocation = 1
         guard let query = searchBar.text else { return } // MARK: guard 예외처리
-        APIService.shared.searchProduct(query: query, start: startLocation, sort: .sim) { data in
+        APIService.shared.searchProduct(query: query, start: startLocation, sort: selectedButton.sortMethod!) { data in
             self.productList = data
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
             }
         }
+        
         view.endEditing(true)
     }
     
@@ -210,14 +220,17 @@ extension SearchViewController: UISearchBarDelegate {
     
 }
 
-// 검색어 없을 때 정렬기능 버튼 클릭 막기
+// 검색어 없을 때 정렬기능 버튼 클릭 막기 -> 정렬버튼 후 검색도 허용되게 만들기 -> 해결
+
 // 정렬 기능 구현
 extension SearchViewController {
-    @objc func accuracyButtonClicked(_ sender: SortButton) {
+    
+    //add target sortButton action 통합
+    @objc func sortButtonClicked(_ sender: SortButton) {
         selectButton(button: sender)
         startLocation = 1
         guard let query = searchBar.text else { return }
-        APIService.shared.searchProduct(query: query, start: startLocation, sort: .sim) { data in
+        APIService.shared.searchProduct(query: query, start: startLocation, sort: sender.sortMethod ?? .sim) { data in
             self.productList = data
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -225,48 +238,7 @@ extension SearchViewController {
             }
         }
     }
-    
-    @objc func dateButtonClicked(_ sender: SortButton) {
-        selectButton(button: sender)
-        startLocation = 1
-        guard let query = searchBar.text else { return }
-        APIService.shared.searchProduct(query: query, start: startLocation, sort: .date) { data in
-            self.productList = data
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-            }
-        }
 
-    }
-    
-    @objc func highPriceButtonClicked(_ sender: SortButton) {
-        selectButton(button: sender)
-        startLocation = 1
-        guard let query = searchBar.text else { return }
-        APIService.shared.searchProduct(query: query, start: startLocation, sort: .dsc) { data in
-            self.productList = data
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-            }
-        }
-
-    }
-    
-    @objc func lowPriceButtonClicked(_ sender: SortButton) {
-        selectButton(button: sender)
-        startLocation = 1
-        guard let query = searchBar.text else { return }
-        APIService.shared.searchProduct(query: query, start: startLocation, sort: .asc) { data in
-            self.productList = data
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
-            }
-        }
-    }
-    
     func selectButton(button: SortButton) {
         button.isSelected = true
         
@@ -280,3 +252,4 @@ extension SearchViewController {
 
 // 비행기모드 API 오류 해결 -> 이후 인터넷 연결했을때
 // 영어 검색 대소문자 구별 없애기
+

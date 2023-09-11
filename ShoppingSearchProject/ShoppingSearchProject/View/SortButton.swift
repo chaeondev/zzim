@@ -9,6 +9,8 @@ import UIKit
 
 final class SortButton: UIButton {
     
+    var sortMethod: Sort?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         titleLabel?.font = .systemFont(ofSize: 14)
