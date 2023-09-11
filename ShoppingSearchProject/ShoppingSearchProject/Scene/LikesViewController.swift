@@ -82,7 +82,7 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
         
         let product = searchList[indexPath.row]
         cell.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, hprice: "", mallName: product.mallName, productID: product.id, productType: "", brand: "", maker: "")
-        cell.configureSearchViewCell()
+        cell.configureCell()
         cell.completionHandler = {
             self.searchList.removeAll()
             self.products!.forEach { self.searchList.append($0) }
@@ -99,8 +99,7 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let vc = DetailWebViewController()
         
         vc.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, hprice: "", mallName: product.mallName, productID: product.id, productType: "", brand: "", maker: "")
-        vc.id = products[indexPath.row].id
-        vc.productTitle = products[indexPath.row].title
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -37,6 +37,7 @@
 		DE04F1CF2AADAA23002FEFAB /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */; };
 		DE04F1D12AADAF2C002FEFAB /* FavoriteProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1D02AADAF2C002FEFAB /* FavoriteProductRepository.swift */; };
 		DE04F1D62AAE1EA4002FEFAB /* DetailWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1D52AAE1EA4002FEFAB /* DetailWebViewController.swift */; };
+		DE04F1D82AAE58E7002FEFAB /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1D72AAE58E7002FEFAB /* String+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		DE04F1CE2AADAA23002FEFAB /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		DE04F1D02AADAF2C002FEFAB /* FavoriteProductRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProductRepository.swift; sourceTree = "<group>"; };
 		DE04F1D52AAE1EA4002FEFAB /* DetailWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWebViewController.swift; sourceTree = "<group>"; };
+		DE04F1D72AAE58E7002FEFAB /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +196,7 @@
 			children = (
 				DE04F1BA2AAA4638002FEFAB /* UINavigationController+Extension.swift */,
 				DE04F1CC2AACD347002FEFAB /* Int+Extension.swift */,
+				DE04F1D72AAE58E7002FEFAB /* String+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				DE04F1A82AA9BBD6002FEFAB /* BaseCollectionViewCell.swift in Sources */,
 				DE04F17C2AA99F4E002FEFAB /* ViewController.swift in Sources */,
 				DE04F1AE2AA9BDBE002FEFAB /* PhotoImageView.swift in Sources */,
+				DE04F1D82AAE58E7002FEFAB /* String+Extension.swift in Sources */,
 				DE04F1A62AA9B8F8002FEFAB /* Color.swift in Sources */,
 				DE04F1952AA9B44F002FEFAB /* BaseViewController.swift in Sources */,
 				DE04F1782AA99F4E002FEFAB /* AppDelegate.swift in Sources */,

@@ -18,8 +18,7 @@ class SearchViewController: BaseViewController {
         view.delegate = self
         return view
     }()
-    
-    // ???: 왜 addtarget에서 target을 self로 하는게 warning이 뜨지?
+
     private lazy var sortByAccuracyButton = {
         let view = SortButton()
         view.setTitle("정확도", for: .normal)
@@ -136,14 +135,12 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         
         let data = productList.items[indexPath.row]
         cell.data = data
-        cell.configureSearchViewCell()
+        cell.configureCell()
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = DetailWebViewController()
-        vc.productTitle = productList.items[indexPath.row].title
-        vc.id = productList.items[indexPath.row].productID
         vc.data = productList.items[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -195,7 +192,6 @@ extension SearchViewController: UISearchBarDelegate {
         startLocation = 1
         guard let query = searchBar.text else { return } // MARK: guard 예외처리
         APIService.shared.searchProduct(query: query, start: startLocation, sort: .sim) { data in
-            print(data)
             self.productList = data
             DispatchQueue.main.async {
                 self.collectionView.reloadData()

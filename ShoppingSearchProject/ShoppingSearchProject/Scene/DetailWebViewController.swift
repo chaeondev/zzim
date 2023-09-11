@@ -11,8 +11,7 @@ import WebKit
 class DetailWebViewController: BaseViewController, WKUIDelegate {
     
     var webView = WKWebView()
-    var productTitle: String = ""
-    var id: String = ""
+
     var data: Item?
     var product: FavoriteProduct?
     
@@ -21,15 +20,14 @@ class DetailWebViewController: BaseViewController, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let sample = productTitle.replacingOccurrences(of: "<b>", with: "")
-        let title = sample.replacingOccurrences(of: "</b>", with: "")
-        navigationItem.title = title
+        guard let data = data else { return }
+        navigationItem.title = data.title.deleteTag()
         navigationController?.navigationBar.tintColor = .label
-        guard let productURL = URL(string: "https://msearch.shopping.naver.com/product/\(id)") else { return }
+        guard let productURL = URL(string: "https://msearch.shopping.naver.com/product/\(data.productID)") else { return }
         let productRequest = URLRequest(url: productURL)
         webView.load(productRequest)
         
-        let heart = repository.checkDataIsEmpty(id: id) ? UIImage(systemName: "heart") : UIImage(systemName: "heart.fill")
+        let heart = repository.checkDataIsEmpty(id: data.productID) ? UIImage(systemName: "heart") : UIImage(systemName: "heart.fill")
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: heart, style: .plain, target: self, action: #selector(likeButtonTapped))
         
     }
@@ -37,7 +35,7 @@ class DetailWebViewController: BaseViewController, WKUIDelegate {
     @objc func likeButtonTapped(_ sender: UIBarButtonItem) {
         
         guard let data = data else { return }
-        if repository.checkDataIsEmpty(id: id) {
+        if repository.checkDataIsEmpty(id: data.productID) {
             sender.image = UIImage(systemName: "heart.fill")
             let product = FavoriteProduct(id: data.productID, title: data.title, mallName: data.mallName, image: data.image, price: data.lprice, like: true, savedDate: Date())
             self.repository.createItem(product)
@@ -53,9 +51,7 @@ class DetailWebViewController: BaseViewController, WKUIDelegate {
         super.configure()
         
         view.addSubview(webView)
-        
-        
-        
+        webView.uiDelegate = self
     }
     
     override func setConstraints() {

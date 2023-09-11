@@ -15,7 +15,6 @@ class FavoriteProductRepository {
     func checkRealmFileURL() {
         print(realm.configuration.fileURL ?? "Can't find file URL")
     }
-    
 
     func createItem(_ product: FavoriteProduct) {
         
@@ -39,16 +38,6 @@ class FavoriteProductRepository {
         do {
             try realm.write {
                 realm.delete(product)
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
-    func deleteRecord(_ record: FavoriteProduct) {
-        do {
-            try realm.write {
-                realm.delete(record)
             }
         } catch {
             print(error)
