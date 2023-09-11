@@ -14,6 +14,7 @@ class SearchViewController: BaseViewController {
     private lazy var searchBar = {
         let view = UISearchBar()
         view.placeholder = "검색어를 입력해주세요"
+        view.tintColor = .label
         view.showsCancelButton = true
         view.delegate = self
         return view
@@ -73,7 +74,7 @@ class SearchViewController: BaseViewController {
     private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
     
     var page = 1
-    var productList: Shopping = Shopping(lastBuildDate: "", total: 0, start: 0, display: 0, items: [])
+    var productList: Shopping = Shopping(total: 0, start: 0, display: 0, items: [])
     var startLocation: Int = 1
     
     var selectedButton: SortButton?
@@ -178,7 +179,7 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
         }
     }
     
-    // MARK: 구현하기
+    // MARK: 구현하기(옵션^^)
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         
     }
@@ -234,7 +235,7 @@ extension SearchViewController: UISearchBarDelegate {
     
 }
 
-// 검색어 없을 때 정렬기능 버튼 클릭 막기 -> 정렬버튼 후 검색도 허용되게 만들기 -> 해결
+// 검색어 없을 때 정렬기능 버튼 클릭 막기 -> 정렬버튼 후 검색도 허용되게 만들기 -> 해결!!
 
 // 정렬 기능 구현
 extension SearchViewController {
@@ -243,15 +244,16 @@ extension SearchViewController {
     @objc func sortButtonClicked(_ sender: SortButton) {
         selectButton(button: sender)
         startLocation = 1
-        guard let query = searchBar.text else { return }
-        APIService.shared.searchProduct(query: query, start: startLocation, sort: sender.sortMethod ?? .sim) { data in
-            self.productList = data
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-                self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+        if let query = searchBar.text, searchBar.text != "" {
+            APIService.shared.searchProduct(query: query, start: startLocation, sort: sender.sortMethod ?? .sim) { data in
+                self.productList = data
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+                }
+            } errorHandler: { error in
+                self.showAlertMessage(title: "네트워크 통신 오류", message: "다시 시도해주세요")
             }
-        } errorHandler: { error in
-            self.showAlertMessage(title: "네트워크 통신 오류", message: "다시 시도해주세요")
         }
     }
 
@@ -265,7 +267,4 @@ extension SearchViewController {
         selectedButton = button
     }
 }
-
-// 비행기모드 API 오류 해결 -> 이후 인터넷 연결했을때
-// 영어 검색 대소문자 구별 없애기
 

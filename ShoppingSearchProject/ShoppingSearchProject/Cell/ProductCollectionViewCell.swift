@@ -101,7 +101,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         imageView.kf.setImage(with: URL(string: data.image))
         // MARK: 검색어 일치하는 타이틀 <b>태그 감싸지는거 text처리하기
         titleLabel.text = data.title.deleteTag()
-        mallNameLabel.text = data.mallName
+        mallNameLabel.text = "[\(data.mallName)]"
         // MARK: 가격 data formatter
         priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
         likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
@@ -113,15 +113,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         }
         
     }
-
-    
-    // MARK: 체크하기
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-    }
-    
-    // MARK: likesView일때 고려해서 다시만들기 -> isEmpty부분 조건 추가하기
+ 
     @objc func likeButtonClicked() {
         
         guard let data = data else { return }

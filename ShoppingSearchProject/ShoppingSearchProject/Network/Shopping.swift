@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: - Shopping
 struct Shopping: Codable {
-    var lastBuildDate: String
     var total, start, display: Int
     var items: [Item]
 }
@@ -19,13 +18,12 @@ struct Item: Codable {
     let title: String
     let link: String
     let image: String
-    let lprice, hprice, mallName, productID: String
-    let productType, brand, maker: String
+    let lprice, mallName, productID: String
+   
 
     enum CodingKeys: String, CodingKey {
-        case title, link, image, lprice, hprice, mallName
+        case title, link, image, lprice, mallName
         case productID = "productId"
-        case productType, brand, maker
     }
 }
 

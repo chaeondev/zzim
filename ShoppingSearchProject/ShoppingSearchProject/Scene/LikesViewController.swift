@@ -87,7 +87,7 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell else { return UICollectionViewCell() }
         if let products {
             let product = products[indexPath.row]
-            cell.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, hprice: "", mallName: product.mallName, productID: product.id, productType: "", brand: "", maker: "")
+            cell.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, mallName: product.mallName, productID: product.id)
             cell.configureCell()
             cell.completionHandler = {
                 collectionView.reloadData()
@@ -101,7 +101,7 @@ extension LikesViewController: UICollectionViewDataSource, UICollectionViewDeleg
         let product = products[indexPath.row]
         let vc = DetailWebViewController()
         
-        vc.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, hprice: "", mallName: product.mallName, productID: product.id, productType: "", brand: "", maker: "")
+        vc.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, mallName: product.mallName, productID: product.id)
         
         navigationController?.pushViewController(vc, animated: true)
     }

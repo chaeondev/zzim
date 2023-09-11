@@ -36,7 +36,7 @@ class FavoriteProductRepository {
     func fetchFilter(text: String) -> Results<FavoriteProduct> {
         let result = realm.objects(FavoriteProduct.self).where {
             $0.title.contains(text)
-        }
+        }.sorted(byKeyPath: "savedDate", ascending: false)
         return result
     }
     
@@ -60,5 +60,3 @@ class FavoriteProductRepository {
     }
    
 }
-
-// MARK: 이미지 저장 파일에? 아니면 매번 API 통신할지 고민해보기
