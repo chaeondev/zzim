@@ -19,7 +19,6 @@
 		DE04F1A02AA9B557002FEFAB /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DE04F19F2AA9B557002FEFAB /* RealmSwift */; };
 		DE04F1A22AA9B637002FEFAB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1A12AA9B637002FEFAB /* SearchViewController.swift */; };
 		DE04F1A42AA9B716002FEFAB /* LikesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1A32AA9B716002FEFAB /* LikesViewController.swift */; };
-		DE04F1A62AA9B8F8002FEFAB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1A52AA9B8F8002FEFAB /* Color.swift */; };
 		DE04F1A82AA9BBD6002FEFAB /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1A72AA9BBD6002FEFAB /* BaseCollectionViewCell.swift */; };
 		DE04F1AA2AA9BC83002FEFAB /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1A92AA9BC83002FEFAB /* ReusableProtocol.swift */; };
 		DE04F1AC2AA9BD28002FEFAB /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1AB2AA9BD28002FEFAB /* ProductCollectionViewCell.swift */; };
@@ -51,7 +50,6 @@
 		DE04F1942AA9B44F002FEFAB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		DE04F1A12AA9B637002FEFAB /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		DE04F1A32AA9B716002FEFAB /* LikesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesViewController.swift; sourceTree = "<group>"; };
-		DE04F1A52AA9B8F8002FEFAB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		DE04F1A72AA9BBD6002FEFAB /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE04F1A92AA9BC83002FEFAB /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
 		DE04F1AB2AA9BD28002FEFAB /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 		DE04F18B2AA9B3B0002FEFAB /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				DE04F1A52AA9B8F8002FEFAB /* Color.swift */,
 				DE04F1AF2AA9BE5E002FEFAB /* Design.swift */,
 			);
 			path = Utility;
@@ -298,7 +295,6 @@
 				DE04F17C2AA99F4E002FEFAB /* ViewController.swift in Sources */,
 				DE04F1AE2AA9BDBE002FEFAB /* PhotoImageView.swift in Sources */,
 				DE04F1D82AAE58E7002FEFAB /* String+Extension.swift in Sources */,
-				DE04F1A62AA9B8F8002FEFAB /* Color.swift in Sources */,
 				DE04F1952AA9B44F002FEFAB /* BaseViewController.swift in Sources */,
 				DE04F1782AA99F4E002FEFAB /* AppDelegate.swift in Sources */,
 				DE04F1CF2AADAA23002FEFAB /* RealmModel.swift in Sources */,

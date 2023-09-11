@@ -198,6 +198,8 @@ extension SearchViewController: UISearchBarDelegate {
         
         guard let selectedButton else { return }
         
+        // MARK: 위 구문 어떻게 고치고 싶다...
+        
         startLocation = 1
         guard let query = searchBar.text else { return } // MARK: guard 예외처리
         APIService.shared.searchProduct(query: query, start: startLocation, sort: selectedButton.sortMethod!) { data in

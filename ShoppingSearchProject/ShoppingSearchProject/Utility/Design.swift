@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Constants {
+enum Constants {
     enum Design {
         static let cornerRadius: CGFloat = 8
         //static let borderWidth: CGFloat = 1

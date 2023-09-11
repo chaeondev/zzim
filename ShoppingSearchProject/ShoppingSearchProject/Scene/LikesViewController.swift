@@ -28,6 +28,8 @@ class LikesViewController: BaseViewController {
         return view
     }()
     
+    private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+    
     var products: Results<FavoriteProduct>?
     var searchList: [FavoriteProduct] = []
     
@@ -38,15 +40,17 @@ class LikesViewController: BaseViewController {
         
         navigationItem.title = "좋아요 목록"
         products = repository.fetch()
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
         searchList.removeAll()
         products!.forEach { searchList.append($0) }
         
+        
+    }
+    
+    // 이부분 고치기 -> 아마해결..
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tapGesture.cancelsTouchesInView = false
         collectionView.reloadData()
     }
     
@@ -55,6 +59,7 @@ class LikesViewController: BaseViewController {
         
         view.addSubview(searchBar)
         view.addSubview(collectionView)
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func setConstraints() {
@@ -68,6 +73,10 @@ class LikesViewController: BaseViewController {
             make.top.equalTo(searchBar.snp.bottom).offset(12)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
