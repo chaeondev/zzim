@@ -62,3 +62,5 @@ class DetailWebViewController: BaseViewController, WKUIDelegate {
         }
     }
 }
+
+// likeButtonTapped -> 하나로 묶을 수 없을까?

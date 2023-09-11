@@ -14,7 +14,6 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     
     let imageView = {
         let view = PhotoImageView(frame: .zero)
-        view.backgroundColor = .blue
         return view
     }()
     
@@ -28,7 +27,6 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     
     let mallNameLabel = {
         let view = UILabel()
-        view.text = "[월드캠핑카]"
         view.textColor = .secondaryLabel
         view.font = .systemFont(ofSize: 13, weight: .semibold)
         return view
@@ -36,7 +34,6 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     
     let titleLabel = {
         let view = UILabel()
-        view.text = "스타리아 2층 캠핑카"
         view.textColor = .label
         view.font = .boldSystemFont(ofSize: 14)
         view.numberOfLines = 2
@@ -45,7 +42,6 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     
     let priceLabel = {
         let view = UILabel()
-        view.text = "19,000,000"
         view.textColor = .label
         view.font = .systemFont(ofSize: 17, weight: .heavy)
         return view

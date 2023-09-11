@@ -133,10 +133,11 @@ extension LikesViewController: UISearchBarDelegate {
         }
         
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
         searchQuery(text: text)
+        view.endEditing(true)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -160,3 +161,6 @@ extension LikesViewController: UISearchBarDelegate {
     
     
 }
+
+// 스크롤 안될시 화면 탭할때 키보드 내리기
+// 상세화면 갔다가 돌아왔을때 검색어 화면 유지

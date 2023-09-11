@@ -198,16 +198,19 @@ extension SearchViewController: UISearchBarDelegate {
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
             }
         }
+        view.endEditing(true)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         productList.items.removeAll()
         searchBar.text = nil
         collectionView.reloadData()
+        view.endEditing(true)
     }
     
 }
 
+// 검색어 없을 때 정렬기능 버튼 클릭 막기
 // 정렬 기능 구현
 extension SearchViewController {
     @objc func accuracyButtonClicked(_ sender: SortButton) {
@@ -274,3 +277,6 @@ extension SearchViewController {
         selectedButton = button
     }
 }
+
+// 비행기모드 API 오류 해결 -> 이후 인터넷 연결했을때
+// 영어 검색 대소문자 구별 없애기
