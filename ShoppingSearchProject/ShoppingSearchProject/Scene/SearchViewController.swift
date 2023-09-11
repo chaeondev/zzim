@@ -48,7 +48,6 @@ class SearchViewController: BaseViewController {
         return view
     }()
     
-    // MARK: 스크롤 시 안보이게 구현 고려하기 -> reusableheader 사용?
     // MARK: pagination 하다가 위로 올라가는 거 구현하기
     private lazy var stackView = {
         let view = UIStackView(arrangedSubviews: [sortByAccuracyButton, sortByDateButton, sortByHighPriceButton, sortByLowPriceButton])
@@ -71,6 +70,8 @@ class SearchViewController: BaseViewController {
         return view
     }()
     
+    private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+    
     var page = 1
     var productList: Shopping = Shopping(lastBuildDate: "", total: 0, start: 0, display: 0, items: [])
     var startLocation: Int = 1
@@ -84,14 +85,16 @@ class SearchViewController: BaseViewController {
         super.viewDidLoad()
 
         navigationItem.title = "쇼핑 검색"
-        repository.checkRealmFileURL()
-     
+        tabBarController?.tabBar.tintColor = .label
+        tabBarController?.tabBar.backgroundColor = .systemBackground
         
+        repository.checkRealmFileURL()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        tapGesture.cancelsTouchesInView = false
         collectionView.reloadData()
     }
     
@@ -104,6 +107,7 @@ class SearchViewController: BaseViewController {
         [sortByAccuracyButton, sortByDateButton, sortByHighPriceButton, sortByLowPriceButton].forEach {
             stackView.addArrangedSubview($0)
         }
+        view.addGestureRecognizer(tapGesture)
     }
     
     override func setConstraints() {
@@ -124,6 +128,10 @@ class SearchViewController: BaseViewController {
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
 }

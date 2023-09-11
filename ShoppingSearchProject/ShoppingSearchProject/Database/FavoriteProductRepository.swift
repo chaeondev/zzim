@@ -33,6 +33,13 @@ class FavoriteProductRepository {
         return data
     }
     
+    func fetchFilter(text: String) -> Results<FavoriteProduct> {
+        let result = realm.objects(FavoriteProduct.self).where {
+            $0.title.contains(text)
+        }
+        return result
+    }
+    
     func deleteItem(_ product: FavoriteProduct) {
         
         do {

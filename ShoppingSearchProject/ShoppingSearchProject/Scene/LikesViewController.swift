@@ -31,7 +31,6 @@ class LikesViewController: BaseViewController {
     private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
     
     var products: Results<FavoriteProduct>?
-    var searchList: [FavoriteProduct] = []
     
     let repository = FavoriteProductRepository()
     
@@ -40,17 +39,17 @@ class LikesViewController: BaseViewController {
         
         navigationItem.title = "좋아요 목록"
         products = repository.fetch()
-        searchList.removeAll()
-        products!.forEach { searchList.append($0) }
         
         
     }
     
-    // 이부분 고치기 -> 아마해결..
+    // 이부분 고치기 -> 아마해결..->아닌듯 ->fetchFilter로 해결!!
+    // 검색어 입력결과가 다른 뷰컨 갔다가 돌아와도 유지되어야함
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         tapGesture.cancelsTouchesInView = false
+
         collectionView.reloadData()
     }
     
@@ -82,28 +81,28 @@ class LikesViewController: BaseViewController {
 
 extension LikesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //guard let products = products else { return 0 }
-        return searchList.count
+        guard let products = products else { return 0 }
+        return products.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.reuseIdentifier, for: indexPath) as? ProductCollectionViewCell else { return UICollectionViewCell() }
-        
-        let product = searchList[indexPath.row]
-        cell.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, hprice: "", mallName: product.mallName, productID: product.id, productType: "", brand: "", maker: "")
-        cell.configureCell()
-        cell.completionHandler = {
-            self.searchList.removeAll()
-            self.products!.forEach { self.searchList.append($0) }
-            collectionView.reloadData()
+        if let products {
+            let product = products[indexPath.row]
+            cell.data = Item(title: product.title, link: "", image: product.image, lprice: product.price, hprice: "", mallName: product.mallName, productID: product.id, productType: "", brand: "", maker: "")
+            cell.configureCell()
+            cell.completionHandler = {
+                collectionView.reloadData()
+            }
         }
+        
 
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard let products = products else { return }
+        guard let products else { return }
         let product = products[indexPath.row]
         let vc = DetailWebViewController()
         
@@ -134,39 +133,39 @@ extension LikesViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if let text = searchBar.text {
-            searchQuery(text: text)
+            products = repository.fetchFilter(text: text)
+            collectionView.reloadData()
         }
         if searchBar.text == "" {
-            searchList.removeAll()
-            products!.forEach { searchList.append($0) }
+            products = repository.fetch()
+            collectionView.reloadData()
         }
         
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
-        searchQuery(text: text)
+        products = repository.fetchFilter(text: text)
+        collectionView.reloadData()
         view.endEditing(true)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        guard let products = products else { return }
-        searchList.removeAll()
-        products.forEach { searchList.append($0) }
+        products = repository.fetch()
         searchBar.text = ""
         collectionView.reloadData()
     }
     
-    func searchQuery(text: String) {
-        searchList.removeAll()
-        guard let products = products else { return }
-        for item in products {
-            if item.title.contains(text) {
-                searchList.append(item)
-            }
-        }
-        collectionView.reloadData()
-    }
+//    func searchQuery(text: String) {
+//        searchList.removeAll()
+//        guard let products = products else { return }
+//        for item in products {
+//            if item.title.contains(text) {
+//                searchList.append(item)
+//            }
+//        }
+//        collectionView.reloadData()
+//    }
     
     
 }
