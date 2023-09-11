@@ -24,15 +24,13 @@ class BaseViewController: UIViewController {
         
     }
     
-    func showAlertMessage(title: String, button: String = "확인", handler: (() -> Void)? = nil ) { //매개변수 기본값
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+    func showAlertMessage(title: String, message: String, button: String = "확인", handler: (() -> Void)? = nil ) { //매개변수 기본값
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let button = UIAlertAction(title: button, style: .default) { _ in
             handler?()
         }
-        let cancel = UIAlertAction(title: "취소", style: .cancel)
         
         alert.addAction(button)
-        alert.addAction(cancel)
         
         present(alert, animated: true)
     }

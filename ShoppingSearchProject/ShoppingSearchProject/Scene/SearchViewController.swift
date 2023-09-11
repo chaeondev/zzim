@@ -171,6 +171,8 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
                     DispatchQueue.main.async {
                         collectionView.reloadData()
                     }
+                } errorHandler: { error in
+                    self.showAlertMessage(title: "네트워크 통신 오류", message: "다시 시도해주세요")
                 }
             }
         }
@@ -216,6 +218,8 @@ extension SearchViewController: UISearchBarDelegate {
                 self.collectionView.reloadData()
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
             }
+        } errorHandler: { error in
+            self.showAlertMessage(title: "네트워크 통신 오류", message: "다시 시도해주세요")
         }
         
         view.endEditing(true)
@@ -246,6 +250,8 @@ extension SearchViewController {
                 self.collectionView.reloadData()
                 self.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
             }
+        } errorHandler: { error in
+            self.showAlertMessage(title: "네트워크 통신 오류", message: "다시 시도해주세요")
         }
     }
 
