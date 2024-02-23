@@ -37,7 +37,7 @@ class LikesViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "좋아요 목록"
+        setNavigation()
         products = repository.fetch()
     }
     
@@ -73,6 +73,15 @@ class LikesViewController: BaseViewController {
 
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func setNavigation() {
+        navigationItem.title = "좋아요 목록"
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor(resource: .point)
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
 }
 

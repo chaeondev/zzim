@@ -19,9 +19,9 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     
     let likeButton = {
         let view = RoundButton(frame: .zero)
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(resource: .point)
         view.setImage(UIImage(systemName: "heart"), for: .normal)
-        view.tintColor = .black
+        view.tintColor = .white
         return view
     }()
     

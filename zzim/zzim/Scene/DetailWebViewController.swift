@@ -22,7 +22,7 @@ class DetailWebViewController: BaseViewController, WKUIDelegate {
         
         guard let data = data else { return }
         navigationItem.title = data.title.deleteTag()
-        navigationController?.navigationBar.tintColor = .label
+        navigationController?.navigationBar.tintColor = .white
         guard let productURL = URL(string: "https://msearch.shopping.naver.com/product/\(data.productID)") else { return }
         let productRequest = URLRequest(url: productURL)
         webView.load(productRequest)

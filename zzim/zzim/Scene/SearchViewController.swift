@@ -85,8 +85,9 @@ class SearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "쇼핑 검색"
-        tabBarController?.tabBar.tintColor = .label
+        setNavigation()
+        
+        tabBarController?.tabBar.tintColor = UIColor(resource: .point)
         tabBarController?.tabBar.backgroundColor = .systemBackground
         
         repository.checkRealmFileURL()
@@ -135,6 +136,15 @@ class SearchViewController: BaseViewController {
         view.endEditing(true)
     }
     
+    func setNavigation() {
+        navigationItem.title = "쇼핑 검색"
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor(resource: .point)
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
 }
 
 extension SearchViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDataSourcePrefetching {
@@ -177,11 +187,6 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
                 }
             }
         }
-    }
-    
-    // MARK: 구현하기(옵션^^)
-    func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        
     }
   
     private func collectionViewLayout() -> UICollectionViewFlowLayout {
