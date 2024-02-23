@@ -39,7 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DE04F1742AA99F4E002FEFAB /* ShoppingSearchProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingSearchProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE04F1742AA99F4E002FEFAB /* zzim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zzim.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE04F1772AA99F4E002FEFAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE04F1792AA99F4E002FEFAB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DE04F17B2AA99F4E002FEFAB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 		DE04F16B2AA99F4E002FEFAB = {
 			isa = PBXGroup;
 			children = (
-				DE04F1762AA99F4E002FEFAB /* ShoppingSearchProject */,
+				DE04F1762AA99F4E002FEFAB /* zzim */,
 				DE04F1752AA99F4E002FEFAB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -94,12 +94,12 @@
 		DE04F1752AA99F4E002FEFAB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DE04F1742AA99F4E002FEFAB /* ShoppingSearchProject.app */,
+				DE04F1742AA99F4E002FEFAB /* zzim.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DE04F1762AA99F4E002FEFAB /* ShoppingSearchProject */ = {
+		DE04F1762AA99F4E002FEFAB /* zzim */ = {
 			isa = PBXGroup;
 			children = (
 				DE04F18B2AA9B3B0002FEFAB /* Utility */,
@@ -118,7 +118,7 @@
 				DE04F1852AA99F4F002FEFAB /* Info.plist */,
 				DE04F1BC2AAA58C7002FEFAB /* .gitignore */,
 			);
-			path = ShoppingSearchProject;
+			path = zzim;
 			sourceTree = "<group>";
 		};
 		DE04F18B2AA9B3B0002FEFAB /* Utility */ = {
@@ -198,9 +198,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DE04F1732AA99F4E002FEFAB /* ShoppingSearchProject */ = {
+		DE04F1732AA99F4E002FEFAB /* zzim */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DE04F1882AA99F4F002FEFAB /* Build configuration list for PBXNativeTarget "ShoppingSearchProject" */;
+			buildConfigurationList = DE04F1882AA99F4F002FEFAB /* Build configuration list for PBXNativeTarget "zzim" */;
 			buildPhases = (
 				DE04F1702AA99F4E002FEFAB /* Sources */,
 				DE04F1712AA99F4E002FEFAB /* Frameworks */,
@@ -210,7 +210,7 @@
 			);
 			dependencies = (
 			);
-			name = ShoppingSearchProject;
+			name = zzim;
 			packageProductDependencies = (
 				DE04F1972AA9B4AB002FEFAB /* SnapKit */,
 				DE04F19A2AA9B4B8002FEFAB /* Alamofire */,
@@ -219,7 +219,7 @@
 				DE04F1CA2AABC274002FEFAB /* Kingfisher */,
 			);
 			productName = ShoppingSearchProject;
-			productReference = DE04F1742AA99F4E002FEFAB /* ShoppingSearchProject.app */;
+			productReference = DE04F1742AA99F4E002FEFAB /* zzim.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -237,7 +237,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DE04F16F2AA99F4E002FEFAB /* Build configuration list for PBXProject "ShoppingSearchProject" */;
+			buildConfigurationList = DE04F16F2AA99F4E002FEFAB /* Build configuration list for PBXProject "zzim" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -256,7 +256,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DE04F1732AA99F4E002FEFAB /* ShoppingSearchProject */,
+				DE04F1732AA99F4E002FEFAB /* zzim */,
 			);
 		};
 /* End PBXProject section */
@@ -367,7 +367,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -421,7 +421,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -440,7 +440,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 94879TT8BU;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShoppingSearchProject/Info.plist;
+				INFOPLIST_FILE = zzim/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "윤채원";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -451,7 +452,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sesac.ShoppingSearchProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaewon.zzim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -471,7 +472,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 94879TT8BU;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ShoppingSearchProject/Info.plist;
+				INFOPLIST_FILE = zzim/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "윤채원";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -482,7 +484,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sesac.ShoppingSearchProject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chaewon.zzim;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -496,7 +498,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DE04F16F2AA99F4E002FEFAB /* Build configuration list for PBXProject "ShoppingSearchProject" */ = {
+		DE04F16F2AA99F4E002FEFAB /* Build configuration list for PBXProject "zzim" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DE04F1862AA99F4F002FEFAB /* Debug */,
@@ -505,7 +507,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DE04F1882AA99F4F002FEFAB /* Build configuration list for PBXNativeTarget "ShoppingSearchProject" */ = {
+		DE04F1882AA99F4F002FEFAB /* Build configuration list for PBXNativeTarget "zzim" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DE04F1892AA99F4F002FEFAB /* Debug */,
