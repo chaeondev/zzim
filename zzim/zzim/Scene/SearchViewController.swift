@@ -71,6 +71,16 @@ class SearchViewController: BaseViewController {
         return view
     }()
     
+    private lazy var historyTableView = {
+        let view = UITableView(frame: .zero)
+        view.register(SearchHistoryCell.self, forCellReuseIdentifier: SearchHistoryCell.description())
+        view.isHidden = true
+        view.delegate = self
+        view.dataSource = self
+        view.separatorStyle = .none
+        return view
+    }()
+    
     private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
     
     var page = 1
@@ -79,11 +89,17 @@ class SearchViewController: BaseViewController {
     
     var selectedButton: SortButton?
     
+    //검색 기록
+    var historyList: [String] = []
+    var searchWord: String = ""
+    
     let repository = FavoriteProductRepository()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UserDefaultsManager.searchHistory = []
 
         setNavigation()
         
@@ -98,12 +114,14 @@ class SearchViewController: BaseViewController {
         
         tapGesture.cancelsTouchesInView = false
         collectionView.reloadData()
+        
+        loadHistory()
     }
     
     override func configure() {
         super.configure()
         
-        [searchBar, stackView, collectionView].forEach {
+        [searchBar, stackView, collectionView, historyTableView].forEach {
             view.addSubview($0)
         }
         [sortByAccuracyButton, sortByDateButton, sortByHighPriceButton, sortByLowPriceButton].forEach {
@@ -127,6 +145,11 @@ class SearchViewController: BaseViewController {
         
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(stackView.snp.bottom).offset(12)
+            make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        historyTableView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
             make.horizontalEdges.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -205,7 +228,38 @@ extension SearchViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 }
 
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return historyList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchHistoryCell.description(), for: indexPath) as? SearchHistoryCell else { return UITableViewCell() }
+        
+        let data = historyList[indexPath.row]
+        
+        cell.configureCell(data)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.deleteHistory(index: indexPath.row)
+    }
+}
+
 extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        historyTableView.isHidden = false
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        historyTableView.isHidden = true
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if selectedButton == nil {
@@ -218,6 +272,8 @@ extension SearchViewController: UISearchBarDelegate {
         
         startLocation = 1
         guard let query = searchBar.text else { return } // MARK: guard 예외처리
+        saveHistory(query)
+        
         APIService.shared.searchProduct(query: query, start: startLocation, sort: selectedButton.sortMethod!) { data in
             self.productList = data
             DispatchQueue.main.async {
@@ -270,6 +326,30 @@ extension SearchViewController {
         }
         
         selectedButton = button
+    }
+}
+
+// MARK: 검색 기록 관련 메서드
+extension SearchViewController {
+    
+    func loadHistory() {
+        historyList = UserDefaultsManager.searchHistory.reversed()
+        historyTableView.reloadData()
+    }
+    
+    func saveHistory(_ word: String) {
+        var newList = UserDefaultsManager.searchHistory
+        newList.removeAll { $0 == word }
+        newList.append(word)
+        UserDefaultsManager.searchHistory = newList
+        self.loadHistory()
+    }
+    
+    func deleteHistory(index: Int) {
+        var newList: [String] = UserDefaultsManager.searchHistory.reversed()
+        newList.remove(at: index)
+        UserDefaultsManager.searchHistory = newList.reversed()
+        self.loadHistory()
     }
 }
 

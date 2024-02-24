@@ -103,7 +103,7 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = data.title.deleteTag()
         mallNameLabel.text = "[\(data.mallName)]"
         // MARK: 가격 data formatter
-        priceLabel.text = Int(data.lprice)?.AddCommaToNumberString()
+        priceLabel.text = Int(data.lprice)?.addCommaToNumberString()
         likeButton.addTarget(self, action: #selector(likeButtonClicked), for: .touchUpInside)
         
         if repository.checkDataIsEmpty(id: data.productID) {

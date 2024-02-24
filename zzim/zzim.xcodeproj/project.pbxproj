@@ -35,6 +35,8 @@
 		DE04F1D12AADAF2C002FEFAB /* FavoriteProductRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1D02AADAF2C002FEFAB /* FavoriteProductRepository.swift */; };
 		DE04F1D62AAE1EA4002FEFAB /* DetailWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1D52AAE1EA4002FEFAB /* DetailWebViewController.swift */; };
 		DE04F1D82AAE58E7002FEFAB /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE04F1D72AAE58E7002FEFAB /* String+Extension.swift */; };
+		DE4EACBC2B8988DC002F7C47 /* SearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4EACBB2B8988DC002F7C47 /* SearchHistoryCell.swift */; };
+		DE4EACBF2B8989B8002F7C47 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4EACBE2B8989B8002F7C47 /* UserDefaultsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +65,8 @@
 		DE04F1D02AADAF2C002FEFAB /* FavoriteProductRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProductRepository.swift; sourceTree = "<group>"; };
 		DE04F1D52AAE1EA4002FEFAB /* DetailWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWebViewController.swift; sourceTree = "<group>"; };
 		DE04F1D72AAE58E7002FEFAB /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		DE4EACBB2B8988DC002F7C47 /* SearchHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCell.swift; sourceTree = "<group>"; };
+		DE4EACBE2B8989B8002F7C47 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 				DE04F18B2AA9B3B0002FEFAB /* Utility */,
 				DE04F1912AA9B3FC002FEFAB /* Network */,
 				DE04F1902AA9B3F5002FEFAB /* Database */,
+				DE4EACBD2B898968002F7C47 /* UserDefaults */,
 				DE04F18F2AA9B3EC002FEFAB /* Base */,
 				DE04F18E2AA9B3DF002FEFAB /* View */,
 				DE04F18D2AA9B3D6002FEFAB /* Cell */,
@@ -140,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				DE04F1AB2AA9BD28002FEFAB /* ProductCollectionViewCell.swift */,
+				DE4EACBB2B8988DC002F7C47 /* SearchHistoryCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -190,6 +196,14 @@
 				DE04F1D72AAE58E7002FEFAB /* String+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		DE4EACBD2B898968002F7C47 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				DE4EACBE2B8989B8002F7C47 /* UserDefaultsManager.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,7 +294,9 @@
 				DE04F1C12AAA58EE002FEFAB /* APIService.swift in Sources */,
 				DE04F1C32AAA5C0A002FEFAB /* Shopping.swift in Sources */,
 				DE04F1D12AADAF2C002FEFAB /* FavoriteProductRepository.swift in Sources */,
+				DE4EACBF2B8989B8002F7C47 /* UserDefaultsManager.swift in Sources */,
 				DE04F1AC2AA9BD28002FEFAB /* ProductCollectionViewCell.swift in Sources */,
+				DE4EACBC2B8988DC002F7C47 /* SearchHistoryCell.swift in Sources */,
 				DE04F1A22AA9B637002FEFAB /* SearchViewController.swift in Sources */,
 				DE04F1D62AAE1EA4002FEFAB /* DetailWebViewController.swift in Sources */,
 				DE04F1B62AAA3E64002FEFAB /* RoundButton.swift in Sources */,
