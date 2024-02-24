@@ -34,10 +34,22 @@
 - **디자인패턴** : MVC, Repository Pattern
 - **라이브러리** : RealmSwift, Alamofire, Kingfisher, SnapKit
 - **의존성관리** : Swift Package Manager
-- **ETC** : CodabaseUI, Codable, prefetchDataSource
+- **ETC** : CodabaseUI, Codable, UserDefaults, prefetchDataSource
 
 ---
 
 > 주요기능
+- **Alamofire** 기반 네이버 쇼핑 API 네트워크 통신으로 쇼핑 검색 기능 제공
+- UICollectionView의 **prefetch** 메서드 기반 **Offset-based Pagination** 구현
+- **Repository Pattern**으로 추상화한 Realm DB로 상품 좋아요 기능 제공
+- **UserDefaults**를 활용해 최근 검색어 목록 **CRUD** 구현
+- **WebKit**을 통해 제품 상세페이지 링크를 앱 내에서 렌더링
+- **Kingfisher** 기반 이미지 **비동기 다운로드** 및 **캐싱** 구현
 
 ---
+
+<br> </br>
+
+## 트러블 슈팅
+
+### 1. 
