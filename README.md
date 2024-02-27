@@ -55,15 +55,68 @@
 ### 1. 상품 좋아요 연동 이슈
 
 #### Issue
+모든 화면(검색, 상세, 좋아요)에서 좋아요 **데이터가 동기화**될 수 있도록 처음에는 **viewWillAppear**에서 매번 collectionview를 **reload** 해줬습니다. 
+하지만 이 경우 변화가 없어도 reload가 발생하기 때문에 계속해서 **리소스를 낭비**하는 문제가 생겼습니다.
 
 #### Solution
+Realm Object에 변화가 생겼을 때 이를 알려주는 Realm Notification이 있다는 것을 알게되었습니다. 
+Notification을 객체에 설정하면, 해당 객체를 관찰하면서 데이터 변경 시점을 알 수 있었습니다.
+이를 통해 데이터가 변화했을때만 collectionView를 reload함으로써 리소스 낭비를 줄일 수 있었습니다.
+
+```swift
+final class LikesViewController: BaseViewController {
+
+    let repository = FavoriteProductRepository()
+
+    var products: Results<FavoriteProduct>?
+    //notification
+    var notificationToken: NotificationToken?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setNotification()
+    }
+
+    private func setNotification() {
+        let realm = try! Realm()
+        
+        products = repository.fetch()
+        
+        notificationToken = products?.observe{ [unowned self] change in
+            switch change {
+            case .initial(let products):
+                print("Initial 상태 : \(products.count)")
+            case .update(let products, let deletions, let insertions, let modifications):
+                self.collectionView.reloadData()
+            case .error(let error):
+                print("Error \(error)")
+            }
+        }
+    }
+```
 
 <br> </br>
 
 ### 2. 이미지 다운로드 시 메모리 오버헤드 이슈
 
 #### Issue
+Kingfisher를 사용해서 API 이미지를 컬렉션뷰에 보여주는 과정에서 메모리 과사용 문제가 발생했습니다.
+이로 인해서 빠르게 스크롤시 이미지 로딩이 지연되었습니다.
 
 #### Solution
+Kingfisher에 이미지 캐싱과 다운샘플릭 기능을 통해서 이미지 데이터 리소스를 최소화했습니다.
+이를 통해 이미지 로딩 지연 문제와 메모리 과사용 문제를 해결할 수 있었습니다.
+
+```swift
+if let imageURL = URL(string: data.image) {
+    imageView.kf.setImage(with: URL(string: data.image),
+                          placeholder: UIImage(systemName: "star"),
+                          options: [
+                            .cacheOriginalImage,
+                            .scaleFactor(UIScreen.main.scale),
+                            .processor(DownsamplingImageProcessor(size: CGSize(width: 200, height: 200)))
+                          ])
+}
+```
 
 <br> </br>
