@@ -98,7 +98,17 @@ class ProductCollectionViewCell: BaseCollectionViewCell {
     func configureCell() {
         
         guard let data = data else { return }
-        imageView.kf.setImage(with: URL(string: data.image))
+
+        if let imageURL = URL(string: data.image) {
+            imageView.kf.setImage(with: URL(string: data.image),
+                                  placeholder: UIImage(systemName: "star"),
+                                  options: [
+                                    .cacheOriginalImage,
+                                    .scaleFactor(UIScreen.main.scale),
+                                    .processor(DownsamplingImageProcessor(size: CGSize(width: 200, height: 200)))
+                                  ])
+        }
+       
         // MARK: 검색어 일치하는 타이틀 <b>태그 감싸지는거 text처리하기
         titleLabel.text = data.title.deleteTag()
         mallNameLabel.text = "[\(data.mallName)]"

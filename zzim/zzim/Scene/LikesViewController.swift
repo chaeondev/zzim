@@ -34,11 +34,15 @@ class LikesViewController: BaseViewController {
     
     let repository = FavoriteProductRepository()
     
+    //notification
+    var notificationToken: NotificationToken?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setNavigation()
         products = repository.fetch()
+        setNotification()
     }
     
     // 이부분 고치기 -> 아마해결..->아닌듯 ->fetchFilter로 해결!!
@@ -160,4 +164,24 @@ extension LikesViewController: UISearchBarDelegate {
         collectionView.reloadData()
     }
 
+}
+
+extension LikesViewController {
+    
+    private func setNotification() {
+        let realm = try! Realm()
+        
+        products = repository.fetch()
+        
+        notificationToken = products?.observe{ [unowned self] change in
+            switch change {
+            case .initial(let products):
+                print("Initial 상태 : \(products.count)")
+            case .update(let products, let deletions, let insertions, let modifications):
+                self.collectionView.reloadData()
+            case .error(let error):
+                print("Error \(error)")
+            }
+        }
+    }
 }
